@@ -1,4 +1,6 @@
 import os
+import json
+import requests
 from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
@@ -15,11 +17,13 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-@app.route("/")
-@app.route("/home")
-def home():
-    home = mongo.db.movies.find()
-    return render_template("home.html", home=home)
+@app.route("/", methods=['GET'])
+@app.route("/get_movies", methods=['GET'])
+def get_movies():
+    req = requests.get("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all")
+    print(json.loads(req.content))
+    movies = json.loads(req.content)
+    return render_template("get_movies.html", movies=movies)
 
 
 if __name__ == "__main__":
