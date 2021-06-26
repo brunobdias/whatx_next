@@ -54,7 +54,7 @@ def now_playing():
         else:    
             flash("Fail Trying to Loading List")
     
-    return render_template("now_playing.html", movies=movies)
+    return render_template("list_movies.html", movies=movies)
 
 ### URL SAMPLE - GET /movie/popular
 # https://api.themoviedb.org/3/movie/popular?api_key=cb840be2847e004061e5c0d2c9f0f0aa&language=en-US&page=1
@@ -69,7 +69,6 @@ def top_rated():
     pprint.pprint(endpoint)
     if req.status_code == 200:
         data = req.json()
-        print(data)
         results = data['results']
         if len(results) > 0:
             print(results[0].keys())
@@ -86,7 +85,47 @@ def top_rated():
         else:    
             flash("Fail Trying to Loading List")
     
-    return render_template("now_playing.html", movies=movies)
+    return render_template("list_movies.html", movies=movies)
+
+### URL SAMPLE - GET /movie/{movie_id}
+#https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
+@app.route("/view_movie/<movie_id>", methods=["GET", "POST"])
+def view_movie(movie_id):
+    endpoint_path = f"/movie/{movie_id}"
+    endpoint_api_key = f"?api_key={app.api_key}"
+    endpoint_lang = "&language=en-US"
+    img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
+    endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
+    req = requests.get(endpoint)
+    pprint.pprint(endpoint)
+    pprint.pprint(data.keys)
+    if req.status_code == 200:
+        data = req.json()
+        img_url = f"{img_url_endpoint_size}{data['poster_path']}"
+        data['poster_path'] = img_url
+        pprint.pprint(data['poster_path'])
+        movies = data
+    return render_template("view_movies.html", movies=movies)
+    """
+    if req.status_code == 200:
+        data = req.json()
+        results = data['results']
+        if len(results) > 0:
+            print(results[0].keys())
+            movie_ids = set()
+            for result in results:
+                img_url = f"{img_url_endpoint_size}{result['poster_path']}"
+                result['poster_path'] = img_url
+                _id = result['id']
+                title = result['title']
+                print(title)
+                movie_ids.add(_id)
+            movies = results
+        else:    
+            flash("Fail Trying to Loading List")
+    """
+    #return render_template("view_movies.html")
+    #return render_template("view_movies.html", movies=movies)
 
     """
 GET

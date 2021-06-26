@@ -7,7 +7,7 @@
             <h2 class="center-align s12 text-shadow">Now Playing</h2> 
         {% endif %}
         {% for movie in movies %}
-            <a class="carousel-item tooltipped" href="#" data-position="top" 
+            <a class="carousel-item tooltipped" href="{{ url_for('view_movie', movie_id=movie.id) }}" data-position="top" 
                 data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 
                 alt="{{movie['title']}}"></a>
         {% endfor %}

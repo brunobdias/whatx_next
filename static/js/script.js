@@ -6,4 +6,5 @@ $(document).ready(function(){
         numVisible: 15
     });
     $('.tooltipped').tooltip();
+    $('.collapsible').collapsible();
   });
