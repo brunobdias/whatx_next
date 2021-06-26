@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="carousel">
-            <!--<h2 class="center-align s12 text-shadow">Now Playing</h2> -->
+        {% if movies.overview == "TMDB - Top Rated Movies" %}
+            <h2 class="center-align s12 text-shadow">TMDB - Top Rated Movies</h2>
+        {% else %}
+            <h2 class="center-align s12 text-shadow">Now Playing</h2> 
+        {% endif %}
         {% for movie in movies %}
             <a class="carousel-item tooltipped" href="#" data-position="top" 
                 data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 

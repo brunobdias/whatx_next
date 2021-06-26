@@ -78,23 +78,22 @@
     </header>
 
     <section>
-        <div class="container">
-          <div class="section">
-            <!-- flash messages -->
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="row flashes">
-                            <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+        <div class="container background">
+          <div class="section"> 
+                <!-- flash messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row flashes">
+                                <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <!-- Block Content -->
+                {% block content %}
 
-            {% block content %}
-
-            {% endblock content %}
-            
+                {% endblock content %}
           </div>
         </div>
 

@@ -45,12 +45,14 @@ def now_playing():
             for result in results:
                 img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                 result['poster_path'] = img_url
+                result['overview'] = "Now Playing Movies"
                 _id = result['id']
                 title = result['title']
                 print(title, _id)
                 movie_ids.add(_id)
             movies = results
-            flash("Now Playing Movies")
+        else:    
+            flash("Fail Trying to Loading List")
     
     return render_template("now_playing.html", movies=movies)
 
@@ -67,6 +69,7 @@ def top_rated():
     pprint.pprint(endpoint)
     if req.status_code == 200:
         data = req.json()
+        print(data)
         results = data['results']
         if len(results) > 0:
             print(results[0].keys())
@@ -74,12 +77,14 @@ def top_rated():
             for result in results:
                 img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                 result['poster_path'] = img_url
+                result['overview'] = "TMDB - Top Rated Movies"
                 _id = result['id']
                 title = result['title']
                 print(title)
                 movie_ids.add(_id)
             movies = results
-            flash("TMDB - Top Rated Movies")
+        else:    
+            flash("Fail Trying to Loading List")
     
     return render_template("now_playing.html", movies=movies)
 
