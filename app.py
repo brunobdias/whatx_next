@@ -4,7 +4,7 @@ import requests
 import pprint
 from flask import (
     Flask, flash, render_template, 
-    redirect, request, session, url_for)
+    redirect, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
@@ -98,7 +98,6 @@ def view_movie(movie_id):
     endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
     req = requests.get(endpoint)
     pprint.pprint(endpoint)
-    pprint.pprint(data.keys)
     if req.status_code == 200:
         data = req.json()
         img_url = f"{img_url_endpoint_size}{data['poster_path']}"
