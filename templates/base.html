@@ -1,65 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--FontAwesome-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Parallax Template - Materialize</title>
+    <!--FontAwesome Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Materialize Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-        type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
-    <title>Whatx Next?</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ url_for('static', filename='css/style_mat.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-
 <body>
-
     <header>
-        <nav class="nav-extended blue-grey text-shadow">
-            <div class="nav-wrapper">
-                &nbsp;
-                <a href="{{ url_for('now_playing') }}" class="brand-logo">
-                    <i class="fas fa-film ml-5"></i>Whatx Next?</a>
-                <a href="#" data-target="mobile" class="sidenav-trigger">
-                    <i class="fas fa-bars"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('now_playing') }}">Home</a></li>
-                    <li><a href="badges.html">Log in</a></li>
-                    <li><a href="collapsible.html">Register</a></li>
-                    <li><a href="mobile.html">About</a></li>
-                    <li><a href="mobile.html">Contact Us</a></li>
-                    <li><a href="mobile.html">Log out</a></li>
-                </ul>
-            </div>
-        </nav>
+        <nav class="white" role="navigation">
+          <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo">Whatx Next?</a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="{{ url_for('now_playing') }}">Home</a></li>
+              <li><a href="#">Log in</a></li>
+              <li><a href="#">Register</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Log out</a></li>
+            </ul>
+      
+            <ul id="nav-mobile" class="sidenav">
+              <li><a href="{{ url_for('now_playing') }}">Home</a></li>
+              <li><a href="#">Log in</a></li>
+              <li><a href="#">Register</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Log out</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          </div>
+      </nav>
 
-        <ul class="sidenav" id="mobile">
-            <li><h4 class="center-align">Whatx Next?</h4></li>
-            <li><a href="{{ url_for('now_playing') }}">Home</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
-        </ul>
+      <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <br><br>
+            <h1 class="header center teal-text text-lighten-2 text-shadow">Whatx Next?</h1>
+            <br><br><br><br><br>
+            <div class="row center">
+              <h2 class="header col s12 light text-shadow">"What movie you will watch next?"</h2>
+            </div>
+            <!--<div class="row center">
+              <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+            </div>
+            <br><br>-->
+    
+          </div>
+        </div>
+        <div class="parallax"><img src="{{ url_for('static', filename='img/background1.jpg') }}" alt="Unsplashed background img 1"></div>
+      </div>    
+
     </header>
 
     <section>
         {% block content %}
 
         {% endblock content %}
+
+        <div class="container">
+          <div class="section">
+
+            <!--   Icon Section
+            <div class="row">
+              <div class="col s12 m4">
+                <div class="icon-block">
+                  <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
+                  <h5 class="center">Speeds up development</h5>
+
+                  <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                </div>
+              </div>
+
+              <div class="col s12 m4">
+                <div class="icon-block">
+                  <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+                  <h5 class="center">User Experience Focused</h5>
+
+                  <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+                </div>
+              </div>
+
+              <div class="col s12 m4">
+                <div class="icon-block">
+                  <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
+                  <h5 class="center">Easy to work with</h5>
+
+                  <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+                </div>
+              </div>
+            </div>  -->
+
+          </div>
+        </div>
+
+
+        <div class="parallax-container valign-wrapper">
+          <div class="section no-pad-bot">
+            <div class="container">
+              <div class="row center">
+                <!--<h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>-->
+              </div>
+            </div>
+          </div>
+          <div class="parallax"><img src="{{ url_for('static', filename='img/background2.jpg') }}" alt="Unsplashed background img 2"></div>
+        </div>
+
+        <div class="container">
+          <div class="section">
+
+            <div class="row">
+              <div class="col s12 center">
+                <h3><i class="mdi-content-send brown-text"></i></h3>
+                <h4>Contact Us</h4>
+                 <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat.;</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="parallax-container valign-wrapper">
+          <div class="section no-pad-bot">
+            <div class="container">
+              <div class="row center">
+                <!--<h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>-->
+              </div>
+            </div>
+          </div>
+          <div class="parallax"><img src="{{ url_for('static', filename='img/background3.jpg') }}" alt="Unsplashed background img 3"></div>
+        </div>
     </section>
+  
+    <footer class="page-footer teal">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Company Bio</h5>
+              <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. 
+                Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
-    <footer>
-
+            </div>
+            <div class="col l3 s12">
+              <h5 class="white-text">Settings</h5>
+              <ul>
+                <li><a class="white-text" href="#!">Link 1</a></li>
+                <li><a class="white-text" href="#!">Link 2</a></li>
+                <li><a class="white-text" href="#!">Link 3</a></li>
+                <li><a class="white-text" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+            <div class="col l3 s12">
+              <h5 class="white-text">Connect</h5>
+              <ul>
+                <li><a class="white-text" href="#!">Link 1</a></li>
+                <li><a class="white-text" href="#!">Link 2</a></li>
+                <li><a class="white-text" href="#!">Link 3</a></li>
+                <li><a class="white-text" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+          </div>
+        </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!--Materialize Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
-</body>
 
+      <!--  Scripts-->
+      <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="{{ url_for('static', filename='js/materialize.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/init.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+
+</body>
 </html>

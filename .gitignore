@@ -6,3 +6,5 @@ __pycache__/
 *.py[cod]
 node_modules/
 app copy.py
+base copy.html
+Copyrights.txt
