@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+    <!--FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Materialize Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css">
     <title>Whatx Next?</title>
 </head>
+
 <body>
 
-    {% block content %}
+    <header>
+        <nav class="nav-extended text-shadow">
+            <div class="nav-wrapper">
+                &nbsp;
+                <a href="{{ url_for('get_movies') }}" class="brand-logo"><i class="fas fa-film ml-5"></i>Whatx Next?</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{ url_for('get_movies') }}">Home</a></li>
+                    <li><a href="badges.html">Log in</a></li>
+                    <li><a href="collapsible.html">Register</a></li>
+                    <li><a href="mobile.html">About</a></li>
+                    <li><a href="mobile.html">Contact Us</a></li>
+                    <li><a href="mobile.html">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    {% endblock content %}
+        <ul class="sidenav" id="mobile-demo">
+            <li><h4 class="center-align">Whatx Next?</h4></li>
+            <li><a href="{{ url_for('get_movies') }}">Home</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+    </header>
 
-    <!-- Compiled and minified JavaScript -->
+    <section>
+        {% block content %}
+
+        {% endblock content %}
+    </section>
+
+    <footer>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--Materialize Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js')}}"></script>
 </body>
+
 </html>
