@@ -5,4 +5,5 @@ $(document).ready(function(){
         dist: -50,
         numVisible: 15
     });
+    $('.tooltipped').tooltip();
   });

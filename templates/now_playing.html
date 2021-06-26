@@ -3,7 +3,8 @@
     <div class="carousel">
             <!--<h2 class="center-align s12 text-shadow">Now Playing</h2> -->
         {% for movie in movies %}
-            <a class="carousel-item" href="#"><img src="{{movie['poster_path']}}" 
+            <a class="carousel-item tooltipped" href="#" data-position="top" 
+                data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 
                 alt="{{movie['title']}}"></a>
         {% endfor %}
     </div>
