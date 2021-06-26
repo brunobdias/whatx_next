@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
     <div>
-        {% for movie in movies %}
-            <p>{{movie['fact']}}</p>
-            <p>--------------------</p>
-        {% endfor %}
+
+        <div class="carousel">
+            {% for movie in movies %}
+            <a class="carousel-item" href="#"><img src="{{movie['poster_path']}}" alt="{{movie['title']}}"></a>
+            {% endfor %}
+        </div>
+        
     </div>
+
 {% endblock content %}    
+
+            <!--<p>{{movie['title']}}</p> 
+            <img src="{{movie['poster_path']}}" alt="{{movie['title']}}">
+            <p>--------------------</p>-->

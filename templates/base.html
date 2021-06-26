@@ -22,10 +22,12 @@
         <nav class="nav-extended text-shadow">
             <div class="nav-wrapper">
                 &nbsp;
-                <a href="{{ url_for('get_movies') }}" class="brand-logo"><i class="fas fa-film ml-5"></i>Whatx Next?</a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+                <a href="{{ url_for('now_playing') }}" class="brand-logo">
+                    <i class="fas fa-film ml-5"></i>Whatx Next?</a>
+                <a href="#" data-target="mobile" class="sidenav-trigger">
+                    <i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('get_movies') }}">Home</a></li>
+                    <li><a href="{{ url_for('now_playing') }}">Home</a></li>
                     <li><a href="badges.html">Log in</a></li>
                     <li><a href="collapsible.html">Register</a></li>
                     <li><a href="mobile.html">About</a></li>
@@ -35,9 +37,9 @@
             </div>
         </nav>
 
-        <ul class="sidenav" id="mobile-demo">
+        <ul class="sidenav" id="mobile">
             <li><h4 class="center-align">Whatx Next?</h4></li>
-            <li><a href="{{ url_for('get_movies') }}">Home</a></li>
+            <li><a href="{{ url_for('now_playing') }}">Home</a></li>
             <li><a href="badges.html">Components</a></li>
             <li><a href="collapsible.html">Javascript</a></li>
             <li><a href="mobile.html">Mobile</a></li>
