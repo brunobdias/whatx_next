@@ -50,6 +50,7 @@ def now_playing():
                 print(title, _id)
                 movie_ids.add(_id)
             movies = results
+            flash("Now Playing Movies")
     
     return render_template("now_playing.html", movies=movies)
 
@@ -78,6 +79,7 @@ def top_rated():
                 print(title)
                 movie_ids.add(_id)
             movies = results
+            flash("TMDB - Top Rated Movies")
     
     return render_template("now_playing.html", movies=movies)
 
