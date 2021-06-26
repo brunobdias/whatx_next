@@ -13,28 +13,44 @@
     <link href="{{ url_for('static', filename='css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{{ url_for('static', filename='css/style_mat.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{{ url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!--  Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </head>
 <body>
     <header>
+        <!-- Dropdown Structure Navbar -->
+        <ul id="dropdown_navbar" class="dropdown-content">
+          <li><a href="{{ url_for('now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('top_rated') }}">Top Rated</a></li>
+        </ul>
+        <!-- Dropdown2 Structure SideNav-->
+        <ul id="dropdown_sidenav" class="dropdown-content">
+          <li><a href="{{ url_for('now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('top_rated') }}">Top Rated</a></li>
+        </ul>
         <nav class="white" role="navigation">
           <div class="nav-wrapper container navbar">
             <a id="logo-container" href="#" class="brand-logo">Whatx Next?</a>
             <ul class="right hide-on-med-and-down">
               <li><a href="{{ url_for('now_playing') }}">Home</a></li>
-              <li><a href="#">Log in</a></li>
+              <li><a href="{{ url_for('top_rated') }}">Log in</a></li>
               <li><a href="#">Register</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="#">Log out</a></li>
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-trigger" href="#!" data-target="dropdown_navbar">TMDB lists<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
       
             <ul id="nav-mobile" class="sidenav">
               <li><a href="{{ url_for('now_playing') }}">Home</a></li>
-              <li><a href="#">Log in</a></li>
+              <li><a href="{{ url_for('top_rated') }}">Log in</a></li>
               <li><a href="#">Register</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="#">Log out</a></li>
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-trigger" href="#!" data-target="dropdown_sidenav">TMDB lists<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           </div>
@@ -127,7 +143,6 @@
 
           </div>
         </div>
-
 
         <div class="parallax-container valign-wrapper">
           <div class="section no-pad-bot">

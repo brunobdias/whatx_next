@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="carousel">
+        <h2 class="center-align s12 text-shadow">Now Playing</h2>
+        {% for movie in movies %}
+            <a class="carousel-item" href="#"><img src="{{movie['poster_path']}}" 
+                alt="{{movie['title']}}"></a>
+        {% endfor %}
+    </div>
+{% endblock content %}    
+
+            <!--<p>{{movie['title']}}</p> 
+            <img src="{{movie['poster_path']}}" alt="{{movie['title']}}">
+            <p>--------------------</p>
+        
+        
+            <div class="carousel">
+        <h2 class="center-align s12 text-shadow">Now Playing</h2>
+        {% for movie in movies_now %}
+            <a class="carousel-item" href="#"><img src="{{movie['poster_path']}}" 
+                alt="{{movie['title']}}"></a>
+        {% endfor %}
+    </div>
+
+        
+        
+        
+        
+        -->

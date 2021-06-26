@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('.dropdown-trigger').dropdown();
     $('.sidenav').sidenav();
     $('.carousel').carousel({
         dist: -50,
