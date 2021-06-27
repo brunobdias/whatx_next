@@ -1,10 +1,10 @@
 import os
 import json
-import requests
 import pprint
+import requests
 from flask import (
     Flask, flash, render_template, 
-    redirect, session, url_for)
+    redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
@@ -133,7 +133,7 @@ Get the most newly created movie. This is a live response and will continuously 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
+    query = requests.get("query")
     tasks = list(mongo.db.tasks.find({"$text":{"$search": query}}))
     return render_template("get_movies.html", tasks=tasks)
 
