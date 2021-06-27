@@ -1,12 +1,12 @@
 import os
-import json
-import pprint
-import requests
 from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import json
+import pprint
+import requests
 if os.path.exists("env.py"):
     import env
 
