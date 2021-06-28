@@ -6,9 +6,9 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import json
 import pprint
-import requests
 if os.path.exists("env.py"):
     import env
+import requests
 
 app = Flask(__name__)
 
