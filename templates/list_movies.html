@@ -1,31 +1,16 @@
 {% extends 'base.html' %}
-{% block content %}
-    <div class="carousel">
-            <h2 class="center-align s12 text-shadow">{{ list_name }}</h2><br><br><br><br>
-        {% for movie in movies %}
-            <a class="carousel-item tooltipped" href="{{ url_for('view_movie', movie_id=movie.id) }}" data-position="top" 
-                data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 
-                alt="{{movie['title']}}">
-            </a>
-        {% endfor %}
-    </div>
-{% endblock content %}    
-
-            <!--<p>{{movie['title']}}</p> 
-            <img src="{{movie['poster_path']}}" alt="{{movie['title']}}">
-            <p>--------------------</p>
-        
-        
-            <div class="carousel">
-        <h2 class="center-align s12 text-shadow">Now Playing</h2>
-        {% for movie in movies_now %}
-            <a class="carousel-item" href="#"><img src="{{movie['poster_path']}}" 
-                alt="{{movie['title']}}"></a>
-        {% endfor %}
-    </div>
-
-        
-        
-        
-        
-        -->
+    {% block content %}
+        <div class="carousel">
+            <h3 class="center-align s12 text-shadow high-light-head">
+                <mark>&nbsp {{ list_name }} &nbsp</mark>
+            </h3>
+            {% for movie in movies %}
+                <div>
+                    <a class="carousel-item tooltipped" href="{{ url_for('view_movie', movie_id=movie.id) }}" data-position="top" 
+                        data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 
+                        alt="{{movie['title']}}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock content %}
