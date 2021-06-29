@@ -23,13 +23,14 @@ mongo = PyMongo(app)
 api_url_src = "https://api.themoviedb.org/"
 endpoint_path = None
 
-
 ### URL SAMPLE - GET /movie/now_playing
 # https://api.themoviedb.org/3/movie/now_playing?api_key=<api_key>&language=en-US
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/now_playing", methods=['GET', 'POST'])
-def now_playing():
-    endpoint_path = "/movie/now_playing"
+@app.route("/list_movies/<list_type>", methods=['GET', 'POST'])
+def list_movies(list_type="now_playing"):
+    if len(list_type) == 0:
+        list_type = "now_playing"
+    endpoint_path = f"/movie/{list_type}"
     endpoint_api_key = f"?api_key={app.api_key}"
     endpoint_lang = "&language=en-US"
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
@@ -49,37 +50,6 @@ def now_playing():
                 _id = result['id']
                 title = result['title']
                 print(title, _id)
-                movie_ids.add(_id)
-            movies = results
-        else:    
-            flash("Fail Trying to Loading List")
-    
-    return render_template("list_movies.html", movies=movies)
-
-### URL SAMPLE - GET /movie/popular
-# https://api.themoviedb.org/3/movie/popular?api_key=cb840be2847e004061e5c0d2c9f0f0aa&language=en-US&page=1
-@app.route("/top_rated", methods=['GET', 'POST'])
-def top_rated():
-    endpoint_path = "/movie/top_rated"
-    endpoint_api_key = f"?api_key={app.api_key}"
-    endpoint_lang = "&language=en-US"
-    img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
-    endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
-    req = requests.get(endpoint)
-    pprint.pprint(endpoint)
-    if req.status_code == 200:
-        data = req.json()
-        results = data['results']
-        if len(results) > 0:
-            print(results[0].keys())
-            movie_ids = set()
-            for result in results:
-                img_url = f"{img_url_endpoint_size}{result['poster_path']}"
-                result['poster_path'] = img_url
-                result['overview'] = "TMDB - Top Rated Movies"
-                _id = result['id']
-                title = result['title']
-                print(title)
                 movie_ids.add(_id)
             movies = results
         else:    

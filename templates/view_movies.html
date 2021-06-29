@@ -10,15 +10,21 @@
                     <span class="card-title">{{movies['title']}}</span>
                 </div>
                 <div class="card-action">
-                    <a href="{{ url_for('now_playing') }}">Return to Home</a>
+                    <a href="{{ url_for('list_movies', list_type='now_playing') }}">Return to Home</a>
                 </div>
             </div>
         </div>
-        <div class="col s12 m8">
+        <div class="col s12 m8 left-align movie-details">
             <ul class="collapsible">
                 <li class="active">
+                  
                   <div class="collapsible-header"><i class="material-icons">filter_drama</i>Overview</div>
-                  <div class="collapsible-body"><span>{{movies['overview']}}</span></div>
+                  <div class="collapsible-body">
+                      <span>Original Title: {{ movies['original_title' ]}}</span> <br><br>
+                    </blockquote>
+                      {{ movies['overview' ]}}
+                    </blockquote>
+                  </div>
                 </li>
                 <li>
                   <div class="collapsible-header"><i class="material-icons">place</i>Second</div>

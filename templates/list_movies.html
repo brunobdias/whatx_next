@@ -9,7 +9,8 @@
         {% for movie in movies %}
             <a class="carousel-item tooltipped" href="{{ url_for('view_movie', movie_id=movie.id) }}" data-position="top" 
                 data-tooltip="{{movie['title']}}"><img src="{{movie['poster_path']}}" 
-                alt="{{movie['title']}}"></a>
+                alt="{{movie['title']}}">
+            </a>
         {% endfor %}
     </div>
 {% endblock content %}    

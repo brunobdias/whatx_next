@@ -20,19 +20,21 @@
     <header>
         <!-- Dropdown Structure Navbar -->
         <ul id="dropdown_navbar" class="dropdown-content">
-          <li><a href="{{ url_for('now_playing') }}">Now Playng</a></li>
-          <li><a href="{{ url_for('top_rated') }}">Top Rated</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
         </ul>
         <!-- Dropdown Structure SideNav-->
         <ul id="dropdown_sidenav" class="dropdown-content">
-          <li><a href="{{ url_for('now_playing') }}">Now Playng</a></li>
-          <li><a href="{{ url_for('top_rated') }}">Top Rated</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
         </ul>
         <nav class="white" role="navigation">
           <div class="nav-wrapper container navbar">
             <a id="logo-container" href="#" class="brand-logo">Whatx Next?</a>
             <ul class="right hide-on-med-and-down">
-              <li><a href="{{ url_for('now_playing') }}">Home</a></li>
+              <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="#">Log in</a></li>
               <li><a href="#">Register</a></li>
               <li><a href="#">About</a></li>
@@ -43,7 +45,7 @@
             </ul>
       
             <ul id="nav-mobile" class="sidenav">
-              <li><a href="{{ url_for('now_playing') }}">Home</a></li>
+              <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="#">Log in</a></li>
               <li><a href="#">Register</a></li>
               <li><a href="#">About</a></li>
