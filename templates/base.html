@@ -21,12 +21,14 @@
         <!-- Dropdown Structure Navbar -->
         <ul id="dropdown_navbar" class="dropdown-content">
           <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='popular') }}">Popular</a></li>
           <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
           <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
         </ul>
         <!-- Dropdown Structure SideNav-->
         <ul id="dropdown_sidenav" class="dropdown-content">
           <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
+          <li><a href="{{ url_for('list_movies', list_type='popular') }}">Popular</a></li>
           <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
           <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
         </ul>
