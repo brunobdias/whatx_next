@@ -18,4 +18,10 @@ blockquote .overview{
 
 #search_bar{
     background-color: white;
+
+}
+
+.card-action{
+    padding: 0;
+    text-align: left;
 }
