@@ -4,9 +4,8 @@ $(document).ready(function(){
     $('.carousel').carousel({
         dist: -50,
         numVisible: 15,
-        indicators: true,
-        padding: 100,
-        pressed: false
+        indicators: false,
+        padding: 100
     });
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();

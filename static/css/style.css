@@ -25,3 +25,13 @@ blockquote .overview{
     padding: 0;
     text-align: left;
 }
+
+.carousel{
+    height: 550px;
+    font-weight: bold;
+}
+
+.section .block-content,
+.section .picture{
+    height: 570px;
+}
