@@ -135,7 +135,7 @@ def login_google():
     return redirect(request_uri)
 
 
-@app.route("/login/callback")
+@app.route("/login_google/callback")
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
