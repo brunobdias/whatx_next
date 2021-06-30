@@ -6,7 +6,7 @@
     line-height: 2;
 }
 
-.movie-details{
+.movie-details span{
     font-weight: bold;
 }
 
@@ -34,4 +34,8 @@ blockquote .overview{
 .section .block-content,
 .section .picture{
     height: 570px;
+}
+
+.btn-format{
+    cursor: unset;
 }

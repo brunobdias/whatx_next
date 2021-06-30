@@ -20,21 +20,53 @@
                   
                   <div class="collapsible-header"><i class="material-icons">filter_drama</i>Overview</div>
                   <div class="collapsible-body">
-                      <span>Original Title: {{ movies['original_title' ]}}</span> <br><br>
-                    </blockquote>
-                      {{ movies['overview' ]}}
-                    </blockquote>
+                      <span>Original Title: {{ movies['original_title']}} | {{ movies['runtime']}} 
+                        {% if movies['homepage']|length > 0 %}
+                          | <a href="{{ movies['homepage']}}"><i class="material-icons">link</i>URL</a>
+                        {% endif %}
+                      </span>
+                      <br><br><hr/> <br>
+                      </blockquote> 
+                          {{ movies['overview' ]}}
+                      </blockquote>
+                      <br><br><hr/> <br>
+                      <span>Genre: </span>
+                      {% for genre in movies['genres'] %}
+                        <a class="btn-flat white btn-format">{{ genre['name'] }}</a>
+                      {% endfor %}
+                      <br><br><hr/> <br>
+                      {% if movies['status'] == "Released" %}
+                        <span>Release Date: </span> {{ movies['release_date'] }} <br>
+                        <span>Status: </span> {{ movies['status'] }}
+                      {% else %} 
+                        <span>Release Status: </span> {{ movies['status'] }}
+                      {% endif %}
+                      <br><br><hr/> <br>
+                      <span>Budget: </span> {{ movies['budget'] }}
+                      <span>Revenue: </span> {{ movies['revenue'] }}
                   </div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-              </ul>
+                </li><!--
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                  </li>-->
+            </ul>
         </div>
     </div>
 {% endblock content %}    
+
+
+<!--{"adult":false,"backdrop_path":"/loRmRzQXZeqG78TqZuyvSlEQfZb.jpg",
+  "belongs_to_collection":null,"budget":22000000,"genres":[{"id":18,"name":"Drama"},
+  {"id":36,"name":"History"},{"id":10752,"name":"War"}],"homepage":"http://www.schindlerslist.com/",
+  "id":424,"imdb_id":"tt0108052","original_language":"en",
+  "original_title":"Schindler's List","overview":"The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.","popularity":25.885,"poster_path":"/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg","production_companies":[{"id":33,"logo_path":"/8lvHyhjr8oUKOOy2dKXoALWKdp0.png","name":"Universal Pictures","origin_country":"US"},{"id":56,"logo_path":"/cEaxANEisCqeEoRvODv2dO1I0iI.png","name":"Amblin Entertainment","origin_country":"US"}],
+  "production_countries":[{"iso_3166_1":"US","name":"United States of America"}],
+  "release_date":"1993-11-30","revenue":321365567,"runtime":195,
+  "spoken_languages":[{"english_name":"German","iso_639_1":"de","name":"Deutsch"},{"english_name":"Polish","iso_639_1":"pl","name":"Polski"},
+  {"english_name":"Hebrew","iso_639_1":"he","name":"עִבְרִית"},{"english_name":"English","iso_639_1":"en","name":"English"}],
+  "status":"Released","tagline":"Whoever saves one life, saves the world entire.","title":"Schindler's List","video":false,"vote_average":8.6,"vote_count":11500}-->
