@@ -90,13 +90,14 @@ def get_list_name(list_type):
     return list_name
 
 
-def get_google_provider_cfg():
-    return requests.get(GOOGLE_DISCOVERY_URL).json()
-
-
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 """
 GET
