@@ -38,7 +38,7 @@
             <ul class="right hide-on-med-and-down">
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="{{ url_for('login') }}">Log in</a></li>
-              <li><a href="#">Register</a></li>
+              <li><a href="{{ url_for('register')}}">Register</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="#">Log out</a></li>
@@ -49,7 +49,7 @@
             <ul id="nav-mobile" class="sidenav">
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="{{ url_for('login') }}">Log in</a></li>
-              <li><a href="#">Register</a></li>
+              <li><a href="{{ url_for('register')}}">Register</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="#">Log out</a></li>

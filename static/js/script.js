@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.carousel').carousel({
         dist: -50,
-        numVisible: 15,
+        numVisible: 20,
         indicators: false,
         padding: 100
     });
