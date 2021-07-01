@@ -39,7 +39,7 @@
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="{{ url_for('login') }}">Log in</a></li>
               <li><a href="{{ url_for('register')}}">Register</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="{{ url_for('logout') }}">Log out</a></li>
               <!-- Dropdown Trigger -->
@@ -50,7 +50,7 @@
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <li><a href="{{ url_for('login') }}">Log in</a></li>
               <li><a href="{{ url_for('register')}}">Register</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
               <li><a href="#">Contact Us</a></li>
               <li><a href="{{ url_for('logout') }}">Log out</a></li>
               <!-- Dropdown Trigger -->
