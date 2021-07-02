@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
     {% block content %}
-        <div class="carousel">
+        <div class="carousel-container">
             <h3 class="center-align s12 text-shadow high-light-head">
                 <mark>&nbsp {{ list_name }} &nbsp</mark>
             </h3>
-            {% for movie in movies %}
-                <a class="carousel-item tooltipped center-align" 
-                    href="{{ url_for('view_movie', movie_id=movie.id) }}" 
-                    data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
-                    <img src="{{movie['poster_path']}}"  alt="{{movie['title']}}">
-                    {{movie['title']}}
-                </a>
-                
-            {% endfor %}
-        </div>
+            <div class="carousel">
+                {% for movie in movies %}
+                    <a class="carousel-item tooltipped center-align" 
+                        href="{{ url_for('view_movie', movie_id=movie.id) }}" 
+                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
+                        <img src="{{movie['poster_path']}}"  alt="{{movie['title']}}">
+                        {{movie['title']}}
+                    </a>
+                {% endfor %}
+            </div>
+        </div> 
     {% endblock content %}
-
+  
     <!--<a class="carousel-item" href="{{ url_for('view_movie', movie_id=movie.id) }}">{{movie['title']}}</a>-->
