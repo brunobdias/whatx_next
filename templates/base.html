@@ -42,8 +42,8 @@
                   <i class="material-icons right">arrow_drop_down</i></a></li>
               {% if session.user %}
                   <li>                 
-                      <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Profile"
-                        href="{{ url_for('profile', username=session['user']) }}">{{ session.user }}</a>
+                      <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Edit Profile"
+                        href="{{ url_for('edit_profile_page', username=session['user']) }}">{{ session.user }}</a>
                   </li>
                   <li><a href="{{ url_for('logout') }}">Log out</a></li>
               {% else %}
@@ -60,8 +60,8 @@
                 " href="#!" data-target="dropdown_sidenav">TMDB Movie lists<i class="material-icons right">arrow_drop_down</i></a></li>
               {% if session.user %}
                   <li>                 
-                    <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Profile"
-                      href="{{ url_for('profile', username=session['user']) }}">{{ session.user }}</a>
+                    <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Edit Profile"
+                      href="{{ url_for('edit_profile_page', username=session['user']) }}">{{ session.user }}</a>
                   </li>
                   <li><a href="{{ url_for('logout') }}">Log out</a></li>
               {% else %}

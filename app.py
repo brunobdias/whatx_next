@@ -5,7 +5,9 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import  (
+    generate_password_hash, 
+    check_password_hash)
 
 if os.path.exists("env.py"):
     import env
@@ -100,8 +102,12 @@ def login():
 
         if existing_user:
             # ensure hashed password matched user input
-            if check_password_hash(existing_user["password"], request.form.get("password")):
+            if check_password_hash(
+                existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
+                
+                #print(existing_user["_id"])
+                #pprint.pprint(existing_user)
                 flash("Welcome, {}".format(
                     request.form.get("username")))
                 return redirect(url_for(
@@ -165,28 +171,52 @@ def profile(username):
 
     return redirect(url_for("login"))
 
-"""
-GET
-/movie/latest
-Get the most newly created movie. This is a live response and will continuously change.
+@app.route("/edit_profile_page/<username>", methods=["GET", "POST"])
+def edit_profile_page(username):
+    # grab the session user's username from db
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    
+    if session['user']:
+        return render_template("edit_profile.html", user=user)
 
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    query = requests.get("query")
-    tasks = list(mongo.db.tasks.find({"$text":{"$search": query}}))
-    return render_template("get_movies.html", tasks=tasks)
+    return redirect(url_for("login"))
 
+@app.route("/edit_profile/<user_id>", methods=["GET", "POST"])
+def edit_profile(user_id):
+    if request.method == "POST":
+        existing_user = mongo.db.users.find_one(
+            {"_id": ObjectId(user_id)})
+                
+        # ensure hashed password matched user input
+        if check_password_hash(existing_user["password"],
+            request.form.get("password")):
+            if len(request.form.get("new_password")) > 0 :
+                password = request.form.get("new_password")
+            else:
+                password = request.form.get("password")
+            is_active = "on" if request.form.get("is_active") else "off"
+            submit = {
+                "username": request.form.get("username"),
+                "password": generate_password_hash(password),
+                "full_name": request.form.get("full_name").title(),
+                "email": request.form.get("email"),
+                "is_active": is_active
+            }
+            mongo.db.users.update({"_id": ObjectId(user_id)},submit)
+            flash("Profile Successfully Updated")
+        else:
+            #invalid password match
+            flash("Incorret Password")
 
-    GET
-/search/movie
+    username = mongo.db.users.find_one(
+            {"_id": ObjectId(user_id)})["username"]
+    
+    # put the new user into 'session' cookie
+    session["user"] = username
+    #return render_template("edit_profile.html", user=user, user_id=user_id)
+    return redirect(url_for("edit_profile_page", username=username))
 
-https://api.themoviedb.org/3/search/movie?api_key=cb840be2847e004061e5c0d2c9f0f0aa&language=en-US&query=army&page=1&include_adult=false
-
-    req = requests.get("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all")
-    print(json.loads(req.content))
-    movies = json.loads(req.content)
-    return render_template("get_movies.html", movies=movies)
-    """
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
