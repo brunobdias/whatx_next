@@ -79,7 +79,7 @@ def view_movie(list_type,movie_id):
         data['poster_path'] = img_url
         pprint.pprint(data['poster_path'])
         movies = data
-    return render_template("view_movies.html", movies=movies)
+    return render_template("view_movies.html", movies=movies, list_type=list_type)
 
 
 ### Get list_type return list_name
