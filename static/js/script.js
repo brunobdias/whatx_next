@@ -16,3 +16,9 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.fixed-action-btn').floatingActionButton();
   });
+
+  /* Animated Checkboxes */
+  /* src https://codepen.io/jaradlight/pen/IEbKq */
+  $('.checkbox').click(function(){
+    $(this).toggleClass('is-checked');
+  });
