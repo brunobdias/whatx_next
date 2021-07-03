@@ -1,76 +1,113 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="row center-align">
-        <div class="col s12 m4">
-            <div class="card">
-                <div class="card-image">
-                <img src="{{movies['poster_path']}}" alt="{{movies['title']}}">
-                </div>
-                <div class="card-action">
-                    <span class="card-title">{{movies['title']}}</span>
-                </div>
-                <div class="card-action">
-                    <a href="{{ url_for('list_movies', list_type='now_playing') }}">Return to Home</a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m8 left-align movie-details">
-            <ul class="collapsible">
-                <li class="active">
-                  
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Overview</div>
-                  <div class="collapsible-body">
-                      <span>Original Title: {{ movies['original_title']}} | {{ movies['runtime']}} 
-                        {% if movies['homepage']|length > 0 %}
-                          | <a href="{{ movies['homepage']}}"><i class="material-icons">link</i>URL</a>
-                        {% endif %}
-                        | TMDB Rate <mark>{{ movies['vote_average']}}</mark> | Votes {{ movies['vote_count']}}
-                      </span>
-                      <br><br><hr/> <br>
-                      </blockquote> 
-                          {{ movies['overview' ]}}
-                      </blockquote>
-                      <br><br><hr/> <br>
-                      <span>Genre: </span>
-                      {% for genre in movies['genres'] %}
-                        <a class="btn-flat white btn-format">{{ genre['name'] }}</a>
-                      {% endfor %}
-                      <br><br><hr/> <br>
-                      {% if movies['status'] == "Released" %}
-                        <span>Release Date: </span> {{ movies['release_date'] }} <br>
-                        <span>Status: </span> {{ movies['status'] }}
-                      {% else %} 
-                        <span>Release Status: </span> {{ movies['status'] }}
-                      {% endif %}
-                      <br><br><hr/> <br>
-                     
-                      {{ movies['popularity'] }}
-                      {{ movies['imdb_id'] }}
-                     
-                      {% for language in movies['spoken_languages'] %}
-                      <a class="btn-flat white btn-format">{{ language['english_name'] }}</a>
-                      {% endfor %}
-
-                  </div>
-                </li>
-                  <li>
-                    <div class="collapsible-header"><i class="material-icons">attach_money</i>Revenue</div>
-                    <div class="collapsible-body">
-                        {% for company in movies['production_companies'] %}
-                          <a class="btn-flat white btn-format">{{ company['name'] }}</a><br>
-                        {% endfor %}
-                          <span>Budget: </span> {{ movies['budget'] }}
-                          <span>Revenue: </span> {{ movies['revenue'] }}
-                    </div>
-                  </li>
-                  <!--<li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                  </li>-->
-            </ul>
-        </div>
+<div class="row center-align">
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <img src="{{movies['poster_path']}}" alt="Title Cover">
+      </div>
+      <div class="card-action">
+          <span class="card-title">
+              {% if list_type == 'movie' %}
+                  {{movies['title']}}
+              {% else %}
+                  {{movies['name']}}
+              {% endif %}
+          </span>
+      </div>
+      <div class="card-action">
+        <a href="{{ url_for('list_movies', list_type='now_playing') }}">Return to Home</a>
+      </div>
     </div>
-{% endblock content %}    
+  </div>
+  <div class="col s12 m8 left-align movie-details">
+    <ul class="collapsible">
+      <li class="active">
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Overview</div>
+        <div class="collapsible-body">
+          <span>
+              {% if list_type == 'movie' %}
+                  Original Title:
+                  {{ movies['original_title']}} |
+                  {{ movies['runtime']}}
+              {% else %}
+                  Title:
+                  {{movies['name']}}
+              {% endif %}
+              {% if movies['homepage']|length > 0 %}
+              | <a href="{{ movies['homepage']}}"><i class="material-icons">link</i>URL</a>
+              {% endif %}
+              | TMDB Rate <mark>{{ movies['vote_average']}}</mark> | Votes {{ movies['vote_count']}}
+          </span>
+          <br><br>
+          <hr /> <br>
+          </blockquote>
+          {{ movies['overview' ]}}
+          </blockquote>
+          <br><br>
+          <hr /> <br>
+          <span>Genre: </span>
+          {% for genre in movies['genres'] %}
+          <a class="btn-flat white btn-format">{{ genre['name'] }}</a>
+          {% endfor %}
+          <br><br>
+          <hr /> <br>
+          {% if movies['status'] == "Released" %}
+          <span>Release Date: </span> {{ movies['release_date'] }} <br>
+          <span>Status: </span> {{ movies['status'] }}
+          {% else %}
+          <span>Release Status: </span> {{ movies['status'] }}
+          {% endif %}
+          <br><br>
+          <hr /> <br>
+
+          {{ movies['popularity'] }}
+          {{ movies['imdb_id'] }}
+
+          {% for language in movies['spoken_languages'] %}
+          <a class="btn-flat white btn-format">{{ language['english_name'] }}</a>
+          {% endfor %}
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">attach_money</i>Revenue</div>
+        <div class="collapsible-body">
+          {% for company in movies['production_companies'] %}
+          <a class="btn-flat white btn-format">{{ company['name'] }}</a><br>
+          {% endfor %}
+          <span>Budget: </span> {{ movies['budget'] }}
+          <span>Revenue: </span> {{ movies['revenue'] }}
+        </div>
+      </li>
+      <div class="buttons-wrapper">
+        <div class="fixed-action-btn direction-top active"><a class="btn-floating btn-large blue tooltipped"
+            title="Draw a Card" data-position="left" data-tooltip="Draw a Card"><i
+              class="large material-icons draw">crop_original</i></a>
+          <ul>
+            <li><a class="btn-floating lime darken-3"
+                style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"><span
+                  class="text-white">W:0</span></a></li>
+            <li><a class="btn-floating indigo darken-2"
+                style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"><span
+                  class="text-white">L:0</span></a></li>
+            <li class="tooltipped" data-position="left" data-tooltip="Visible Totals"><a class="btn-floating blue-grey"
+                style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"><span
+                  class="text-white">2/0</span></a></li>
+            <li class="tooltipped" data-position="left" data-tooltip="End Turn"><a class="btn-floating btn-large orange"
+                title="Dealer's Turn" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"><i
+                  class="large material-icons deck">undo</i></a></li>
+            <li class="tooltipped" data-position="left" data-tooltip="New Game"><a
+                class="btn-floating btn-large red darken-2" title="New Game"
+                style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"><i
+                  class="large material-icons deck">layers</i></a></li>
+          </ul>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>
+{% endblock content %}
 
 
 <!--{"adult":false,"backdrop_path":"/loRmRzQXZeqG78TqZuyvSlEQfZb.jpg",

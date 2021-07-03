@@ -32,12 +32,12 @@ endpoint_path = None
     URL SAMPLE# https://api.themoviedb.org/3/movie/<list_type>?api_key=<api_key>&language=en-US
 """
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/list_movies/<list_type>", methods=['GET', 'POST'])
-def list_movies(list_type="now_playing"):
-    if len(list_type) == 0:
-        list_type = "now_playing"
-    list_name = get_list_name(list_type) #
-    endpoint_path = f"/movie/{list_type}"
+@app.route("/list_movies/<list_type>/<list_name>", methods=['GET', 'POST'])
+def list_movies(list_type="movie", list_name="now_playing"):
+    #if len(list_type) == 0:
+    #    list_type = "movie/now_playing"
+    lists_name = get_list_name(list_name) #Remove Character from List Name
+    endpoint_path = f"/{list_type}/{list_name}"
     endpoint_api_key = f"?api_key={app.api_key}"
     endpoint_lang = "&language=en-US"
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
@@ -53,23 +53,20 @@ def list_movies(list_type="now_playing"):
             for result in results:
                 img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                 result['poster_path'] = img_url
-                result['overview'] = "Now Playing Movies"
                 _id = result['id']
-                title = result['title']
-                print(title, _id)
                 movie_ids.add(_id)
             movies = results
         else:    
             flash("Fail Trying to Loading List")
     
-    return render_template("list_movies.html", movies=movies, list_name=list_name)
+    return render_template("list_movies.html", movies=movies, list_name=lists_name, list_type=list_type )
 
 
 ### URL SAMPLE - GET /movie/{movie_id}
 #https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
-@app.route("/view_movie/<movie_id>", methods=["GET", "POST"])
-def view_movie(movie_id):
-    endpoint_path = f"/movie/{movie_id}"
+@app.route("/view_movie/<list_type>/<movie_id>", methods=["GET", "POST"])
+def view_movie(list_type,movie_id):
+    endpoint_path = f"/{list_type}/{movie_id}"
     endpoint_api_key = f"?api_key={app.api_key}"
     endpoint_lang = "&language=en-US"
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"

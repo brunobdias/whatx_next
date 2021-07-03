@@ -20,17 +20,23 @@
     <header>
         <!-- Dropdown Structure Navbar -->
         <ul id="dropdown_navbar" class="dropdown-content">
-          <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='popular') }}">Popular</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie', list_name='now_playing') }}">Now Playng</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='popular') }}">Popular</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='top_rated') }}">Top Rated</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='upcoming') }}">Upcoming</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='airing_today') }}">TV Airing Today</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='on_the_air') }}">TV On The Air</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='popular') }}">TV Popular</a></li>
         </ul>
         <!-- Dropdown Structure SideNav-->
         <ul id="dropdown_sidenav" class="dropdown-content">
-          <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Now Playng</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='popular') }}">Popular</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='top_rated') }}">Top Rated</a></li>
-          <li><a href="{{ url_for('list_movies', list_type='upcoming') }}">Upcoming</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie', list_name='now_playing') }}">Now Playng</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='popular') }}">Popular</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='top_rated') }}">Top Rated</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='movie',list_name='upcoming') }}">Upcoming</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='airing_today') }}">TV Airing Today</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='on_the_air') }}">TV On The Air</a></li>
+            <li><a href="{{ url_for('list_movies', list_type='tv', list_name='popular') }}">TV Popular</a></li>
         </ul>
         <nav class="white" role="navigation">
           <div class="nav-wrapper container navbar">
@@ -38,7 +44,7 @@
             <ul class="right hide-on-med-and-down">
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <!-- Dropdown Trigger -->
-              <li><a class="dropdown-trigger" href="#!" data-target="dropdown_navbar">TMDB Movie lists
+              <li><a class="dropdown-trigger" href="#!" data-target="dropdown_navbar">TMDB lists
                   <i class="material-icons right">arrow_drop_down</i></a></li>
               {% if session.user %}
                   <li>                 
@@ -81,7 +87,7 @@
             <h2 class="header center teal-text text-lighten-2 text-shadow">Whatx Next?</h2>
 
             <div class="row center">
-                <h3 class="header col s12 light text-shadow">"What movie watch next?"</h3>
+                <h3 class="header col s12 light text-shadow">"Do you know what watch next?"</h3>
             </div>
 
             <div class="row center">
