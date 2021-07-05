@@ -46,7 +46,6 @@
 /* src https://codepen.io/jaradlight/pen/IEbKq */
 
   .choice-list {
-    margin: 50px auto;
     width: 400px;
     display: block;
     padding: 0;
@@ -62,7 +61,7 @@
     border-radius: 50px;
     display: block;
     background-color: rgba(0, 0, 0, 0.25);
-    margin: 20px;
+    margin: 5px;
     -moz-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
     -o-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
     -webkit-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);

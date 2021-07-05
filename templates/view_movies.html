@@ -21,12 +21,18 @@
     </div>
     <!-- Animated Checkboxes -->
     <!-- src https://codepen.io/jaradlight/pen/IEbKq -->
-    <ul class="choice-list">
-      <li class="checkbox plus"></li>
-      <li class="checkbox check"></li>
-      <li class="checkbox heart is-checked"></li>
-      <li class="checkbox star"></li>
-    </ul>
+    <div class="checkbox-list">
+      <ul class="choice-list">
+        <li class="checkbox plus tooltipped"
+          data-position="bottom" data-tooltip="Add Watch List"></li>
+        <li class="checkbox check tooltipped" 
+          data-position="bottom" data-tooltip="Add Watched List"></li>
+        <li class="checkbox heart tooltipped is-checked" 
+          data-position="bottom" data-tooltip="Like"></li>
+        <li class="checkbox star tooltipped" 
+          data-position="bottom" data-tooltip="Add Favorite List"></li>
+      </ul>
+    </div>
   </div>
   <div class="col s12 m8 left-align movie-details">
     <ul class="collapsible">
