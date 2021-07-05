@@ -65,6 +65,7 @@
     -moz-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
     -o-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
     -webkit-transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     transition: all 0.15s cubic-bezier(0.5, 0, 0, 1.5);
   }
   .checkbox:hover {
