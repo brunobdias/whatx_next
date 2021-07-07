@@ -21,18 +21,67 @@
     </div>
     <!-- Animated Checkboxes -->
     <!-- src https://codepen.io/jaradlight/pen/IEbKq -->
-    <div class="checkbox-list">
-      <ul class="choice-list">
-        <li class="checkbox plus tooltipped"
-          data-position="bottom" data-tooltip="Add Watch List"></li>
-        <li class="checkbox check tooltipped" 
-          data-position="bottom" data-tooltip="Add Watched List"></li>
-        <li class="checkbox heart tooltipped is-checked" 
-          data-position="bottom" data-tooltip="Like"></li>
-        <li class="checkbox star tooltipped" 
-          data-position="bottom" data-tooltip="Add Favorite List"></li>
-      </ul>
+    <div class="row">
+      <form class="col s12" name="chk-list" id="chk-list" method="POST" 
+        action="{{ url_for('add_list', movie_id=movies['id'], list_type=list_type) }}">
+        <div class="checkbox-list">
+          <ul class="choice-list">
+            {% if movies_users.to_watch == "on" %}
+              <li value="on" name='to_watch' id="to_watch" class="checkbox plus tooltipped is-checked" 
+                data-position="bottom" data-tooltip="Add Watch List">
+                <label for="to_watch"></label></li>
+            {% else %}
+              <li value="on" value="to_watch" name='to_watch' id="to_watch" class="checkbox plus tooltipped" 
+                data-position="bottom" data-tooltip="Add Watch List">
+                <label for="to_watch"><input type="checkbox" name='to_watch'/></label></li>
+            {% endif %}
+
+            {% if movies_users.watched == "on" %}
+              <li value="on" name='watched' id="watched" class="checkbox check tooltipped is-checked" 
+                data-position="bottom" data-tooltip="Add Watched List">
+                <label for="watched"><input type="checkbox" name='watched'/></label></li>
+            {% else %}
+              <li value="on" name='watched' id="watched" class="checkbox check tooltipped" 
+                data-position="bottom" data-tooltip="Add Watched List">
+                <label for="watched"><input type="checkbox" name='watched' /></label></label></li>
+            {% endif %}
+              
+            {% if movies_users.liked == "on" %}
+              <li value="on" name='liked' id="liked" class="checkbox heart tooltipped is-checked" 
+                data-position="bottom" data-tooltip="Like">
+                <label for="liked"><input type="checkbox" name='liked' /></label></li>
+            {% else %}
+              <li value="on" name='liked' id="liked" class="checkbox heart tooltipped" 
+                data-position="bottom" data-tooltip="Like">
+                <label for="liked"><input type="checkbox" name='liked' /></label></li>
+            {% endif %}                
+              
+            {% if movies_users.favorite == "on" %}
+              <li value="on" name='favorite' id="favorite" class="checkbox star tooltipped is-checked" 
+                data-position="bottom" data-tooltip="Add Favorite List">
+                <label for="favorite"><input type="checkbox" name='favorite' /></label></li>
+            {% else %}
+              <li value="on" name='favorite' id="favorite" class="checkbox star tooltipped" 
+                data-position="bottom" data-tooltip="Add Favorite List">
+                <label for="favorite"></label></li> 
+            {% endif %}             
+          </ul>
+        </div>
+        <input type='text' name="edt_to_watch" id="edt_to_watch" value="{{ movies_users['to_watch'] }}" style='display:none;'>
+        <label for="edt_to_watch"></label>
+        <input type='text' name="edt_watched" id="edt_watched" value="{{ movies_users['watched'] }}" style='display:none;'>
+        <label for="edt_watched"></label>
+        <input type='text' name="edt_liked" id="edt_liked" value="{{ movies_users['liked'] }}" style='display:none;'>
+        <label for="edt_liked"></label>
+        <input type='text' name="edt_favorite" id="edt_favorite" value="{{ movies_users['favorite'] }}" style='display:none;'>
+        <label for="edt_favorite"></label>
+
+        <button type="submit" class="btn-large light-blue blue darken-1 text-shadow">
+          Add Lists <i class="fas fa-edit right"></i>
+      </button>
+      </form>      
     </div>
+    
   </div>
   <div class="col s12 m8 left-align movie-details">
     <ul class="collapsible">

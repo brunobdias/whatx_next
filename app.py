@@ -59,13 +59,25 @@ def list_movies(list_type="movie", list_name="now_playing"):
         else:    
             flash("Fail Trying to Loading List")
     
-    return render_template("list_movies.html", movies=movies, list_name=lists_name, list_type=list_type )
+    return render_template("list_movies.html", movies=movies, 
+        list_name=lists_name, list_type=list_type )
 
 
 ### URL SAMPLE - GET /movie/{movie_id}
 #https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
 @app.route("/view_movie/<list_type>/<movie_id>", methods=["GET", "POST"])
-def view_movie(list_type,movie_id):
+def view_movie(list_type, movie_id):
+    
+    movies_users = ''
+
+    if session.get('user'):
+        if session['user']:
+            user_id = mongo.db.users.find_one(
+                {"username": session["user"]})["_id"]
+
+            movies_users = mongo.db.movies_users.find_one({"movie_id": movie_id, 
+                        "user_id": ObjectId(user_id)})
+    
     endpoint_path = f"/{list_type}/{movie_id}"
     endpoint_api_key = f"?api_key={app.api_key}"
     endpoint_lang = "&language=en-US"
@@ -77,9 +89,10 @@ def view_movie(list_type,movie_id):
         data = req.json()
         img_url = f"{img_url_endpoint_size}{data['poster_path']}"
         data['poster_path'] = img_url
-        pprint.pprint(data['poster_path'])
+        #pprint.pprint(data['poster_path'])
         movies = data
-    return render_template("view_movies.html", movies=movies, list_type=list_type)
+    return render_template("view_movies.html", movies=movies, 
+        list_type=list_type, movies_users=movies_users)
 
 
 ### Get list_type return list_name
@@ -213,6 +226,37 @@ def edit_profile(user_id):
     session["user"] = username
     #return render_template("edit_profile.html", user=user, user_id=user_id)
     return redirect(url_for("edit_profile_page", username=username))
+
+@app.route("/add_list/<movie_id>/<list_type>", methods=["GET", "POST"])
+def add_list(movie_id, list_type):
+    if session.get('user'):
+        if len(session["user"]) > 0:
+            if request.method == "POST":
+                
+                user_id = mongo.db.users.find_one(
+                    {"username": session["user"]})["_id"]
+                            
+                list = {
+                        "movie_id": movie_id,
+                        "user_id": ObjectId(user_id),
+                        "to_watch": request.form.get("edt_to_watch"),
+                        "watched": request.form.get("edt_watched"),
+                        "liked": request.form.get("edt_liked"),
+                        "favorite": request.form.get("edt_favorite")
+                    }
+
+                mongo.db.movies_users.update({"movie_id": movie_id, 
+                    "user_id": ObjectId(user_id)}, list, upsert=True)
+
+                # put the new user into 'session' cookie
+                #session["user"] = request.form.get("username").lower()
+                flash("List add")
+    else:
+        flash("You must log in first")
+        return redirect(url_for("login"))
+
+    return redirect(url_for("view_movie", list_type=list_type,
+         movie_id=movie_id))
 
 
 if __name__ == "__main__":
