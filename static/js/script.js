@@ -14,6 +14,7 @@ $(document).ready(function () {
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
+    $('.tabs').tabs();
     $('.fixed-action-btn').floatingActionButton();
 });
 
