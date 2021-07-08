@@ -227,27 +227,37 @@ def edit_profile(user_id):
     #return render_template("edit_profile.html", user=user, user_id=user_id)
     return redirect(url_for("edit_profile_page", username=username))
 
-@app.route("/add_list/<movie_id>/<list_type>", methods=["GET", "POST"])
-def add_list(movie_id, list_type):
+@app.route("/add_list/<movie_id>/<list_type>/<title>/", methods=["GET", "POST"])
+def add_list(movie_id, list_type, title):
+    print(movie_id)
+    print(list_type)
+    print(title)
     if session.get('user'):
+        print("Start")
         if len(session["user"]) > 0:
+            print("request.method" + request.method)
             if request.method == "POST":
+                print("Start")
                 
                 user_id = mongo.db.users.find_one(
                     {"username": session["user"]})["_id"]
-                            
+                print("List")            
                 list = {
                         "movie_id": movie_id,
+                        "poster_path": request.form.get("poster_path"),
+                        "title": title,
+                        "list_type": list_type,
                         "user_id": ObjectId(user_id),
                         "to_watch": request.form.get("edt_to_watch"),
                         "watched": request.form.get("edt_watched"),
                         "liked": request.form.get("edt_liked"),
                         "favorite": request.form.get("edt_favorite")
                     }
-
+                print("Movie start add")
                 mongo.db.movies_users.update({"movie_id": movie_id, 
                     "user_id": ObjectId(user_id)}, list, upsert=True)
-
+                
+                print("Movie add")
                 # put the new user into 'session' cookie
                 #session["user"] = request.form.get("username").lower()
                 flash("List add")

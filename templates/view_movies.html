@@ -9,8 +9,10 @@
       <div class="card-action">
         <span class="card-title">
           {% if list_type == 'movie' %}
+            {% set title = movies['title'] %}
             {{movies['title']}}
           {% else %}
+            {% set title = movies['name'] -%}
             {{movies['name']}}
           {% endif %}
         </span>
@@ -23,7 +25,7 @@
     <!-- src https://codepen.io/jaradlight/pen/IEbKq -->
     <div class="row">
       <form class="col s12" name="chk-list" id="chk-list" method="POST" 
-        action="{{ url_for('add_list', movie_id=movies['id'], list_type=list_type) }}">
+        action="{{ url_for('add_list', movie_id=movies['id'], list_type=list_type, title=title) }}">
         <div class="checkbox-list">
           <ul class="choice-list">
             {% if movies_users.to_watch == "on" %}
@@ -67,6 +69,8 @@
             {% endif %}             
           </ul>
         </div>
+        <input type='text' name="poster_path" id="poster_path" value="{{ movies['poster_path'] }}" style='display:none;'>
+        <label for="poster_path"></label>
         <input type='text' name="edt_to_watch" id="edt_to_watch" value="{{ movies_users['to_watch'] }}" style='display:none;'>
         <label for="edt_to_watch"></label>
         <input type='text' name="edt_watched" id="edt_watched" value="{{ movies_users['watched'] }}" style='display:none;'>
