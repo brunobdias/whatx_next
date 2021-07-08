@@ -53,15 +53,64 @@ def list_movies(list_type="movie", list_name="now_playing"):
             for result in results:
                 img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                 result['poster_path'] = img_url
-                _id = result['id']
-                movie_ids.add(_id)
+                #_id = result['id']
+                #movie_ids.add(_id)
             movies = results
         else:    
             flash("Fail Trying to Loading List")
     
-    return render_template("list_movies.html", movies=movies, 
-        list_name=lists_name, list_type=list_type )
+    watchlist = []
+    watched_list = []
+    liked_list = []
+    favorite_list = []
+    if session.get('user'):
+        if session['user']:
+            user_id = get_user_id()
+            watchlist = load_watchlist(user_id)
+            watched_list = load_watched_list(user_id)
+            liked_list = load_liked_list(user_id)
+            favorite_list = load_favorite_list(user_id)
 
+    return render_template("list_movies.html", movies=movies, 
+        list_name=lists_name, list_type=list_type, 
+        watchlist=watchlist, watched_list=watched_list, 
+        liked_list=liked_list, favorite_list=favorite_list )
+
+
+def load_watchlist(user_id):
+    watchlist = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
+        "to_watch": "on"})
+    return watchlist
+
+
+def load_watched_list(user_id):
+    watched_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
+        "watched": "on"})
+    return watched_list
+
+
+def load_liked_list(user_id):
+    liked_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
+        "liked": "on"})
+    return liked_list
+
+
+def load_favorite_list(user_id):
+    favorite_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
+        "favorite": "on"})
+    return favorite_list
+
+
+def get_user_id():
+    if session.get('user'):
+        if session['user']:
+            user_id = mongo.db.users.find_one(
+                {"username": session["user"]})["_id"]
+    return user_id
+
+def user_must_log_in():
+    flash("You must log in first")
+    return redirect(url_for("login"))
 
 ### URL SAMPLE - GET /movie/{movie_id}
 #https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
