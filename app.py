@@ -63,6 +63,7 @@ def list_movies(list_type="movie", list_name="now_playing"):
     watched_list = []
     liked_list = []
     favorite_list = []
+    my_movies = []
     if session.get('user'):
         if session['user']:
             user_id = get_user_id()
@@ -323,6 +324,11 @@ def add_list(movie_id, list_type, title):
     return redirect(url_for("view_movie", list_type=list_type,
          movie_id=movie_id))
 
+@app.route("/delete_movie/<movie_id>/<list_type>")
+def delete_movie(movie_id, list_type):
+    print("Ready")
+    return redirect(url_for("view_movie", list_type=list_type,
+         movie_id=movie_id))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
