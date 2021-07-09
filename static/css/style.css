@@ -143,3 +143,24 @@
     background-color: #ffca25;
   }
   /* Animated Checkboxes  END */
+
+  /*-CSS flexbox
+  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox*/
+  ul{
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .col .item-list {
+    word-break: break-all;
+  }
+
+  .col .item-list img {
+    width: 250px;
+}
+
+  div .title {
+    font-weight: bolder;
+    width: 200px;
+    word-break: keep-all;
+}
