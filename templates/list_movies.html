@@ -32,7 +32,7 @@
                 <li class="tab col"><a href="#tab6"><i class="material-icons">settings</i> My Movies</a></li>
                 <li class="tab col"><a href="#tab7">TAB</a></li>
                 <li class="tab col"><a href="#tab8">TAB</a></li>
-                <li class="tab col"><a href="#tab11">Reviews Panel</a></li>
+                <li class="tab col"><a href="#tab9">Reviews Panel</a></li>
                 
               </ul>
             </div>
@@ -136,7 +136,34 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="tab6" class="col s12"></div>
+            <div id="tab6" class="col s12">
+                <ul class="lists">
+                    {% for movie in my_movies %}
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list">
+                            <div class="right">
+                                <a href="#" class="btn waves-effect grey waves-red" name="action">
+                                    <i class="material-icons">delete_forever</i> Delete
+                                </a>
+                            </div> <br>
+                            <a class="tooltipped img-hover-zoom--colorize" 
+                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                            data-position="bottom" data-tooltip="{{title}}">
+                            <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
+                            <div>
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark>
+   
+                            </a> <br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
             <div id="tab7" class="col s12"></div>
             <div id="tab8" class="col s12"></div>
             <div id="tab9" class="col s12"></div>

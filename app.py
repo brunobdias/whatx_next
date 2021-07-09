@@ -70,11 +70,13 @@ def list_movies(list_type="movie", list_name="now_playing"):
             watched_list = load_watched_list(user_id)
             liked_list = load_liked_list(user_id)
             favorite_list = load_favorite_list(user_id)
+            my_movies = load_my_movies(user_id)
 
     return render_template("list_movies.html", movies=movies, 
         list_name=lists_name, list_type=list_type, 
         watchlist=watchlist, watched_list=watched_list, 
-        liked_list=liked_list, favorite_list=favorite_list )
+        liked_list=liked_list, favorite_list=favorite_list,
+        my_movies=my_movies )
 
 
 def load_watchlist(user_id):
@@ -98,6 +100,10 @@ def load_liked_list(user_id):
 def load_favorite_list(user_id):
     favorite_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
         "favorite": "on"})
+    return favorite_list
+
+def load_my_movies(user_id):
+    favorite_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id)})
     return favorite_list
 
 
