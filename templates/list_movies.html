@@ -6,15 +6,16 @@
             </h3>
             <div class="carousel">
                 {% for movie in movies %}
-                    <a class="carousel-item tooltipped center-align" 
+                    {% if list_type == 'movie' %}
+                        {% set title = movie['title'] %}
+                    {% else %}
+                        {% set title = movie['name'] %}
+                    {% endif %}
+                    <a class="carousel-item tooltipped center-align img-hover-zoom" 
                         href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
-                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
+                        data-position="bottom" data-tooltip="{{title}}">
                         <img src="{{movie['poster_path']}}"  alt="Title Cover">
-                        {% if list_type == 'movie' %}
-                            {{movie['title']}}
-                        {% else %}
-                            {{movie['name']}}
-                        {% endif %}
+                        {{title}}
                     </a>
                 {% endfor %}
             </div>
@@ -23,11 +24,11 @@
         <div class="row">
             <div class="col">
               <ul class="tabs">
-                <li class="tab col"><a class="active" href="#tab1">{{ list_name }}</a></li>
+                <li class="tab col"><a class="active" href="#tab1"><i class="material-icons">local_movies</i> {{ list_name }}</a></li>
                 <li class="tab col"><a  href="#tab2"><i class="material-icons">add_box</i> Watchlist</a></li>
-                <li class="tab col"><a href="#tab3"><i class="material-icons">check_box</i>Watched</a></li>
-                <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i>Liked</a></li>
-                <li class="tab col"><a href="#tab5"><i class="material-icons">star</i>Favorite</a></li>
+                <li class="tab col"><a href="#tab3"><i class="material-icons">check_box</i> Watched</a></li>
+                <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
+                <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
                 <li class="tab col"><a href="#tab6"><i class="material-icons">settings</i> My Movies</a></li>
                 <li class="tab col"><a href="#tab7">TAB</a></li>
                 <li class="tab col"><a href="#tab8">TAB</a></li>
@@ -39,17 +40,19 @@
             <div id="tab1" class="col lists">
                 <ul>
                     {% for movie in movies %}
-                        <li class="col item-list"><a class="tooltipped" 
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
                             href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
-                            data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
+                            data-position="bottom" data-tooltip="{{title}}">
                             <img src="{{movie['poster_path']}}" alt="Title Cover">
-                            <div class="title">
-                                {% if list_type == 'movie' %}
-                                    {{movie['title']}}
-                                {% else %}
-                                    {{movie['name']}}
-                                {% endif %}
-                            </div> <br> </a> 
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark> 
+                            </a> <br>
                         </li>
                     {% endfor %}
                 </ul>
@@ -57,56 +60,80 @@
             <div id="tab2" class="col s12">
                 <ul>
                     {% for movie in watchlist %}
-                    <li class="col"><a class="tooltipped" 
-                        href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
-                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
-                        <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
-                        <mark><div>
-                            {{movie['title']}}
-                        </div></mark>
-                    </a> <br> </li>
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
+                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                            data-position="bottom" data-tooltip="{{title}}">
+                            <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark>
+                            </a> <br> 
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
             <div id="tab3" class="col s12">
                 <ul>
                     {% for movie in watched_list %}
-                    <li class="col"><a class="tooltipped" 
-                        href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
-                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
-                        <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
-                        <mark><div>
-                            {{movie['title']}}
-                        </div></mark>
-                    </a> <br> </li>
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
+                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                            data-position="bottom" data-tooltip="{{title}}">
+                            <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark>
+                            </a> <br> 
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
             <div id="tab4" class="col s12">
                 <ul>
                     {% for movie in liked_list %}
-                    <li class="col"><a class="tooltipped" 
-                        href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
-                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
-                        <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
-                        <mark><div>
-                            {{movie['title']}}
-                        </div></mark>
-                    </a> <br> </li>
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
+                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                            data-position="bottom" data-tooltip="{{title}}">
+                            <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark>
+                            </a> <br> 
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
             <div id="tab5" class="col s12">
                 <ul>
                     {% for movie in favorite_list %}
-                    <li class="col"><a class="tooltipped" 
-                        href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
-                        data-position="top" data-tooltip="TMDB Rate: {{movie['vote_average']}}">
-                        <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
-                        <mark><div>
-                            {{movie['title']}}
-                        </div></mark>
-                    </a> <br> </li>
+                        {% if list_type == 'movie' %}
+                            {% set title = movie['title'] %}
+                        {% else %}
+                            {% set title = movie['name'] %}
+                        {% endif %}
+                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
+                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                            data-position="bottom" data-tooltip="{{title}}">
+                            <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
+                            <mark><div class="title">
+                                {{title}}
+                            </div></mark>
+                            </a> <br> 
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -118,5 +145,3 @@
             <div id="tab11" class="col s12"></div>
         </div>
     {% endblock content %}
-  
-    <!--<a class="carousel-item" href="{{ url_for('view_movie', movie_id=movie.id) }}">{{movie['title']}}</a>-->

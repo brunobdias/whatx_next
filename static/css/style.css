@@ -160,7 +160,32 @@
 }
 
   div .title {
-    font-weight: bolder;
     width: 200px;
     word-break: keep-all;
+}
+
+
+/* Colorize-zoom Container */
+/*https://w3bits.com/css-image-hover-zoom/*/
+.img-hover-zoom img {
+  transition: transform .5s, filter 1.5s ease-in-out;
+  /*filter: grayscale(100%);*/
+}
+
+/* The Transformation */
+.img-hover-zoom:hover img {
+  /*filter: grayscale(0);*/
+  transform: scale(1.2);
+}
+
+/* Colorize-zoom Container */
+.img-hover-zoom--colorize img {
+  transition: transform .5s, filter 1.5s ease-in-out;
+  filter: grayscale(60%);
+}
+
+/* The Transformation */
+.img-hover-zoom--colorize:hover img {
+  filter: grayscale(0);
+  transform: scale(1.1);
 }
