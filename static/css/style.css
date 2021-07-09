@@ -146,13 +146,16 @@
 
   /*-CSS flexbox
   https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox*/
-  ul{
+   
+  ul .lists{
     display: flex;
     flex-flow: row wrap;
+    height: 100%;
   }
 
   .col .item-list {
     word-break: break-all;
+    height: 100%;
   }
 
   .col .item-list img {
