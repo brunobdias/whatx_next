@@ -1,3 +1,6 @@
+var movie_id;
+var list_type;
+
 $(document).ready(function () {
     if ($(window).width() < 470) {
         $('.carousel').carousel({
@@ -16,6 +19,7 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.tabs').tabs();
     $('.fixed-action-btn').floatingActionButton();
+    $('.modal').modal();
 });
 
 /* Animated Checkboxes */
@@ -104,3 +108,22 @@ $("#favorite").click(function () {
         }
     }
 });
+
+$(".trigger-modal-delete").click(function () {
+    var title = '<mark>' + $(this)
+        .closest('li') // goes up in the tree to closest li
+        .find('.title').html() + // then back to .title and get content
+        '</mark>';
+    var imgURL = $(this)
+        .closest('li')
+        .find('.img-path').attr('src');
+    movie_id = $(this)
+        .closest('li')
+        .find('#movie_id').attr('name');
+    $(".modal-title").html(title);
+    $(".modal-img").attr('src', imgURL);     
+    $(".modal-footer").html(`<a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a> 
+        <a id="delete-btn" href="/delete_movie/${movie_id}" 
+        class="modal-close waves-effect waves-red btn red lighten-3 delete-btn">Delete</a>`)
+});
+

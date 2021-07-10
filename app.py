@@ -289,9 +289,8 @@ def add_list(movie_id, list_type, title):
     print(list_type)
     print(title)
     if session.get('user'):
-        print("Start")
         if len(session["user"]) > 0:
-            print("request.method" + request.method)
+            #print("request.method" + request.method)
             if request.method == "POST":
                 print("Start")
                 
@@ -314,8 +313,6 @@ def add_list(movie_id, list_type, title):
                     "user_id": ObjectId(user_id)}, list, upsert=True)
                 
                 print("Movie add")
-                # put the new user into 'session' cookie
-                #session["user"] = request.form.get("username").lower()
                 flash("List add")
     else:
         flash("You must log in first")
@@ -324,11 +321,15 @@ def add_list(movie_id, list_type, title):
     return redirect(url_for("view_movie", list_type=list_type,
          movie_id=movie_id))
 
-@app.route("/delete_movie/<movie_id>/<list_type>")
-def delete_movie(movie_id, list_type):
-    print("Ready")
-    return redirect(url_for("view_movie", list_type=list_type,
-         movie_id=movie_id))
+
+@app.route("/delete_movie/<movie_id>")
+def delete_movie(movie_id):
+
+    mongo.db.movies_users.remove({"_id": ObjectId(movie_id)})
+        
+    flash("Title Successfully Removed from Your Lists")
+    return redirect(url_for("list_movies"))
+         
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
