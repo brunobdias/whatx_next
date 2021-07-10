@@ -37,7 +37,7 @@
               </ul>
             </div>
             <div id="tab1" class="col lists">
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in movies %}
                         {% if list_type == 'movie' %}
                             {% set title = movie['title'] %}
@@ -57,7 +57,7 @@
                 </ul>
             </div>
             <div id="tab2" class="col s12">
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in watchlist %}
                         {% if list_type == 'movie' %}
                             {% set title = movie['title'] %}
@@ -77,7 +77,7 @@
                 </ul>
             </div>
             <div id="tab3" class="col s12">
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in watched_list %}
                         {% if list_type == 'movie' %}
                             {% set title = movie['title'] %}
@@ -97,7 +97,7 @@
                 </ul>
             </div>
             <div id="tab4" class="col s12">
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in liked_list %}
                         {% if list_type == 'movie' %}
                             {% set title = movie['title'] %}
@@ -117,7 +117,7 @@
                 </ul>
             </div>
             <div id="tab5" class="col s12">
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in favorite_list %}
                         {% if list_type == 'movie' %}
                             {% set title = movie['title'] %}
@@ -138,7 +138,7 @@
             </div>
             <div id="tab6" class="col s12">
                 
-                <ul class="lists">
+                <ul id="ul-lists">
                     {% for movie in my_movies %}
                         {% set v_movie_id = movie['_id'] %}
                         {% set v_list_type = list_type %}
