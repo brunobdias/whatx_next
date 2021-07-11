@@ -74,7 +74,8 @@
               {% if session.user %}
                   <li>                 
                     <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Edit Profile"
-                      href="{{ url_for('edit_profile_page', username=session['user']) }}">{{ session.user }}</a>
+                      href="{{ url_for('edit_profile_page', username=session['user']) }}">
+                      <i class="tiny material-icons left">settings</i>{{ session.user }}</a>
                   </li>
                   <li><a href="{{ url_for('logout') }}">Log out</a></li>
               {% else %}
