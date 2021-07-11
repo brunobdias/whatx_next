@@ -183,7 +183,7 @@
 /* Colorize-zoom Container */
 .img-hover-zoom--colorize img {
   transition: transform .5s, filter 1.5s ease-in-out;
-  filter: grayscale(60%);
+  filter: grayscale(90%);
 }
 
 /* The Transformation */
