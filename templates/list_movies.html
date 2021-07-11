@@ -30,9 +30,7 @@
                 <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
                 <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
                 <li class="tab col"><a href="#tab6"><i class="material-icons">settings</i> My Movies</a></li>
-                <li class="tab col"><a href="#tab7">TAB</a></li>
-                <li class="tab col"><a href="#tab8">TAB</a></li>
-                <li class="tab col"><a href="#tab9">Reviews Panel</a></li>
+                <li class="tab col"><a href="#tab7">Reviews Panel</a></li>
                 
               </ul>
             </div>
@@ -73,6 +71,16 @@
                             </div></mark>
                             </a> <br> 
                         </li>
+                    {% else %}
+                        {% if session.user %}
+                            <li class="col s12 center"><h5>Empty List</h5></li>
+                        {% else %}    
+                            <li class="col s12 center">
+                                You Must
+                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
+                                To Check Your Lists
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -93,6 +101,16 @@
                             </div></mark>
                             </a> <br> 
                         </li>
+                    {% else %}
+                        {% if session.user %}
+                            <li class="col s12 center"><h5>Empty List</h5></li>
+                        {% else %}    
+                            <li class="col s12 center">
+                                You Must
+                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
+                                To Check Your Lists
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -113,6 +131,16 @@
                             </div></mark>
                             </a> <br> 
                         </li>
+                    {% else %}
+                        {% if session.user %}
+                            <li class="col s12 center"><h5>Empty List</h5></li>
+                        {% else %}    
+                            <li class="col s12 center">
+                                You Must
+                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
+                                To Check Your Lists
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -133,11 +161,20 @@
                             </div></mark>
                             </a> <br> 
                         </li>
+                    {% else %}
+                        {% if session.user %}
+                            <li class="col s12 center"><h5>Empty List</h5></li>
+                        {% else %}    
+                            <li class="col s12 center">
+                                You Must
+                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
+                                To Check Your Lists
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
             <div id="tab6" class="col s12">
-                
                 <ul id="ul-lists">
                     {% for movie in my_movies %}
                         {% set v_movie_id = movie['_id'] %}
@@ -180,13 +217,21 @@
    
                             </a> <br>
                         </li>
+                    {% else %}
+                        {% if session.user %}
+                            <li class="col s12 center"><h5>Empty List</h5></li>
+                        {% else %}    
+                            <li class="col s12 center">
+                                You Must
+                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
+                                To Check Your Lists
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
-            <div id="tab7" class="col s12"></div>
-            <div id="tab8" class="col s12"></div>
-            <div id="tab9" class="col s12"></div>
-            <div id="tab10" class="col s12"></div>
-            <div id="tab11" class="col s12"></div>
+            <div id="tab7" class="col s12">
+                Empty List
+            </div>
         </div>
     {% endblock content %}
