@@ -4,6 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Whatx Next Movie?</title>
+    <!--https://pypi.org/project/Flask-Toastr/-->
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
     <!--FontAwesome Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -23,6 +27,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </head>
 <body>
+    {{ toastr.include_toastr_js() }}
     <header>
         <!-- Dropdown Structure Navbar -->
         <ul id="dropdown_navbar" class="dropdown-content">
@@ -148,7 +153,7 @@
                     {% if messages %}
                         {% for message in messages %}
                             <div class="row flashes">
-                                <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                                <h4 class="red lighten-4 center-align">{{ message }}</h4>
                             </div>
                         {% endfor %}
                     {% endif %}

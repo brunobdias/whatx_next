@@ -29,7 +29,7 @@
                 <li class="tab col"><a href="#tab3"><i class="material-icons">check_box</i> Watched</a></li>
                 <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
                 <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
-                <li class="tab col"><a href="#tab6"><i class="material-icons">settings</i> My Movies</a></li>
+                <li class="tab col"><a href="#my_movies"><i class="material-icons">settings</i> My Movies</a></li>
                 <li class="tab col"><a href="#tab7">Reviews Panel</a></li>
                 
               </ul>
@@ -174,7 +174,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="tab6" class="col s12">
+            <div id="my_movies" class="col s12">
                 <ul id="ul-lists">
                     {% for movie in my_movies %}
                         {% set v_movie_id = movie['_id'] %}

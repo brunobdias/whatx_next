@@ -8,6 +8,7 @@ from bson.objectid import ObjectId
 from werkzeug.security import  (
     generate_password_hash, 
     check_password_hash)
+from flask_toastr import Toastr
 
 if os.path.exists("env.py"):
     import env
@@ -23,9 +24,16 @@ app.api_key = os.environ.get("API_KEY")
 app.api_version = os.environ.get("API_VERSION")
 
 mongo = PyMongo(app)
+toastr = Toastr(app)
+
 
 api_url_src = "https://api.themoviedb.org/"
 endpoint_path = None
+
+toastr = Toastr()
+# initialize toastr on the app within create_app()
+toastr.init_app(app)
+
 
 """
     list_type: now_playing, popular, top_rated, upcoming
@@ -57,7 +65,7 @@ def list_movies(list_type="movie", list_name="now_playing"):
                 #movie_ids.add(_id)
             movies = results
         else:    
-            flash("Fail Trying to Loading List")
+            flash("Fail on Loading List", 'error')
     
     watchlist = []
     watched_list = []
@@ -116,7 +124,7 @@ def get_user_id():
     return user_id
 
 def user_must_log_in():
-    flash("You must log in first")
+    flash("You must log in first", 'warning')
     return redirect(url_for("login"))
 
 ### URL SAMPLE - GET /movie/{movie_id}
@@ -166,7 +174,7 @@ def register():
             {"username": request.form.get("username").lower()})
         
         if existing_user:
-            flash("Username already exists")
+            flash("Username already exists", 'warning')
             return redirect(url_for("register"))
         
         register = {
@@ -181,7 +189,8 @@ def register():
 
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
-        flash("Registration Succesfull")
+        flash("Registration Succesfull", 'success')
+        
         return redirect(url_for("profile", username=session["user"]))
     return render_template("register.html")
 
@@ -202,16 +211,16 @@ def login():
                 #print(existing_user["_id"])
                 #pprint.pprint(existing_user)
                 flash("Welcome, {}".format(
-                    request.form.get("username")))
+                    request.form.get("username")), 'success')
                 return redirect(url_for(
                     "profile", username=session["user"]))
             else:
                 #invalid password match
-                flash("Incorret Password")
+                flash("Incorret Password", 'warning')
                 return redirect(url_for("login"))
         else:
             # username doesn't exist
-            flash("Incorret Username and/or Password")
+            flash("Incorret Username and/or Password", 'warning')
             return redirect(url_for("login"))
 
     return render_template("login.html")
@@ -220,7 +229,7 @@ def login():
 @app.route("/logout")
 def logout():
     # remove user from session cookies
-    flash("You have been logged out")
+    flash("You have been logged out", 'success')
     session.pop("user")
     return redirect(url_for("login"))
 
@@ -269,10 +278,10 @@ def edit_profile(user_id):
                 "is_active": is_active
             }
             mongo.db.users.update({"_id": ObjectId(user_id)},submit)
-            flash("Profile Successfully Updated")
+            flash("Profile Successfully Updated", 'success')
         else:
             #invalid password match
-            flash("Incorret Password")
+            flash("Incorret Password", 'warning')
 
     username = mongo.db.users.find_one(
             {"_id": ObjectId(user_id)})["username"]
@@ -312,9 +321,9 @@ def add_list(movie_id, list_type, title):
                     "user_id": ObjectId(user_id)}, list, upsert=True)
                 
                 print("Movie add")
-                flash("List add")
+                flash("Lists Updated", 'success')
     else:
-        flash("You must log in first")
+        flash("You must log in first", 'warning')
         return redirect(url_for("login"))
 
     return redirect(url_for("view_movie", list_type=list_type,
@@ -326,8 +335,8 @@ def delete_movie(movie_id):
 
     mongo.db.movies_users.remove({"_id": ObjectId(movie_id)})
         
-    flash("Title Successfully Removed from Your Lists")
-    return redirect(url_for("list_movies"))
+    flash("Title Removed", 'success')
+    return redirect(url_for("list_movies", _anchor="my_movies"))
          
 
 if __name__ == "__main__":
