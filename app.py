@@ -128,8 +128,7 @@ def view_movie(list_type, movie_id):
 
     if session.get('user'):
         if session['user']:
-            user_id = mongo.db.users.find_one(
-                {"username": session["user"]})["_id"]
+            user_id = get_user_id()
 
             movies_users = mongo.db.movies_users.find_one({"movie_id": movie_id, 
                         "user_id": ObjectId(user_id)})
