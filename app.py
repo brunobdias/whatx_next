@@ -181,8 +181,7 @@ def register():
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "full_name": request.form.get("full_name").title(),
-            "email": request.form.get("email").lower(),
-            "is_active": "on"
+            "email": request.form.get("email").lower()
         }
 
         mongo.db.users.insert_one(register)
@@ -269,13 +268,11 @@ def edit_profile(user_id):
                 password = request.form.get("new_password")
             else:
                 password = request.form.get("password")
-            is_active = "on" if request.form.get("is_active") else "off"
             submit = {
                 "username": request.form.get("username"),
                 "password": generate_password_hash(password),
                 "full_name": request.form.get("full_name").title(),
-                "email": request.form.get("email"),
-                "is_active": is_active
+                "email": request.form.get("email")
             }
             mongo.db.users.update({"_id": ObjectId(user_id)},submit)
             flash("Profile Successfully Updated", 'success')
@@ -337,6 +334,19 @@ def delete_movie(movie_id):
         
     flash("Title Removed", 'success')
     return redirect(url_for("list_movies", _anchor="my_movies"))
+
+@app.route("/delete_user")
+def delete_user():
+    
+    if session.get('user'):
+        if session['user']:
+            user_id = get_user_id()
+
+            mongo.db.movies_users.remove({"user_id": ObjectId(user_id)})
+            mongo.db.users.remove({"_id": ObjectId(user_id)})
+            
+    flash("User Account Deleted", 'success')
+    return redirect(url_for("logout"))
          
 
 if __name__ == "__main__":
