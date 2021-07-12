@@ -196,10 +196,13 @@
                                 <div id="modal-delete" class="modal">
                                     <div class="modal-content">
                                     <h4>Delete Title from your Lists<i class="medium material-icons right">warning</i></h4>
-                                    <p>Are you sure you want to delete this item, "<span class="modal-title"></span>"
-                                        from your lists?</p>
-                                    <img src="{{movie['poster_path']}}" class="modal-img" alt="Title Cover">
-                                    <p>This will remove <mark><span class="modal-title"></span></mark><br>from the following lists: Watchlist, Watched, Liked, Favorite</p>
+                                    <p>Are you sure you want to delete this item, "<span class="modal-title"></span>" from your lists? <br>
+                                        This will remove "<mark><span class="modal-title"></span></mark>"
+                                        from the following lists: Watchlist, Watched, Liked, Favorite
+                                    </p>
+                                    <div class="img center-align"><img src="{{movie['poster_path']}}" class="modal-img" alt="Title Cover">
+                                    </div> <br>
+                                    <p></p>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
