@@ -75,7 +75,7 @@ $("#liked").click(function () {
     } else {
         $('#edt_liked').val('on');
 
-        if ($('#edt_watched').val() == "off"){
+        if ($('#edt_watched').val() != "on"){
             $('#edt_watched').val('on');   
 
             $('#watched').toggleClass('is-checked');
@@ -95,7 +95,7 @@ $("#favorite").click(function () {
     } else {
         $('#edt_favorite').val('on');
         
-        if ($('#edt_watched').val() == "off"){
+        if ($('#edt_watched').val() != "on"){
             $('#edt_watched').val('on');   
 
             $('#watched').toggleClass('is-checked');
