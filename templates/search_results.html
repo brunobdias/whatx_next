@@ -8,25 +8,27 @@
             </div>
             <div id="search_results" class="col lists">
                 <ul id="ul-lists">
-                    {% for movie in movies if movie['media_type'] == 'movie' or movie['media_type'] == 'tv'  %}
-                        {% set list_type = movie['media_type'] %}
-                        {% if  movie['media_type'] == 'movie' %}
-                            {% set title = movie['title'] %}
-                        {% elif movie['media_type'] == 'tv'  %}
-                            {% set title = movie['name'] %}
-                        {% else %}
-                            {% if loop.nextitem is defined%}
+                    {% for movie in movies if movie['media_type'] == 'movie' or movie['media_type'] == 'tv' %}
+                        {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
+                            {% set list_type = movie['media_type'] %}
+                            {% if  movie['media_type'] == 'movie' %}
+                                {% set title = movie['title'] %}
+                            {% elif movie['media_type'] == 'tv'  %}
+                                {% set title = movie['name'] %}
+                            {% else %}
+                                {% if loop.nextitem is defined%}
+                                {% endif %}
                             {% endif %}
+                            <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
+                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
+                                data-position="bottom" data-tooltip="{{title}}">
+                                <img src="{{movie['poster_path']}}" alt="Title Cover">
+                                <mark><div class="title">
+                                    {{title}}
+                                </div></mark> 
+                                </a> <br>
+                            </li>
                         {% endif %}
-                        <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
-                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
-                            data-position="bottom" data-tooltip="{{title}}">
-                            <img src="{{movie['poster_path']}}" alt="Title Cover">
-                            <mark><div class="title">
-                                {{title}}
-                            </div></mark> 
-                            </a> <br>
-                        </li>
                     {% endfor %}
                 </ul>
             </div>
