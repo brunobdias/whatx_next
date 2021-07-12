@@ -117,30 +117,12 @@ def search_results(list_type, list_name, query):
                     result['poster_path'] = img_url
             movies = results
         else:    
-            flash("Fail on Loading List", 'error')
+            flash("Fail on Loading List, No results found", 'error')
     else:    
-        flash("Fail on Loading List", 'error')
-        return redirect(url_for("list_movies"))
+        flash("Fail on Loading List, Req. Status Code:" + req.status_code , 'error')
+        #return redirect(url_for("list_movies"))
 
-    watchlist = []
-    watched_list = []
-    liked_list = []
-    favorite_list = []
-    my_movies = []
-    if session.get('user'):
-        if session['user']:
-            user_id = get_user_id()
-            watchlist = load_watchlist(user_id)
-            watched_list = load_watched_list(user_id)
-            liked_list = load_liked_list(user_id)
-            favorite_list = load_favorite_list(user_id)
-            my_movies = load_my_movies(user_id)
-
-    return render_template("search_results.html", movies=movies, 
-        list_name=lists_name, list_type=list_type, 
-        watchlist=watchlist, watched_list=watched_list, 
-        liked_list=liked_list, favorite_list=favorite_list,
-        my_movies=my_movies )
+    return render_template("search_results.html", movies=movies)
 
 
 def load_watchlist(user_id):
