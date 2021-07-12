@@ -406,7 +406,12 @@ def delete_user():
             
     flash("User Account Deleted", 'success')
     return redirect(url_for("logout"))
-         
+
+#https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404     
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
