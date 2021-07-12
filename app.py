@@ -88,6 +88,61 @@ def list_movies(list_type="movie", list_name="now_playing"):
         my_movies=my_movies )
 
 
+@app.route("/search_results/<list_type>/<list_name>/<query>", methods=['GET', 'POST'])
+def search_results(list_type, list_name, query):
+    lists_name = get_list_name(list_name) #Remove Character from List Name
+    endpoint_path = f"/{list_type}/{list_name}"
+    endpoint_api_key = f"?api_key={app.api_key}"
+    endpoint_lang = "&language=en-US"
+    endpoint_query = f"&language=en-US&query={query}"
+    img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
+    endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}{endpoint_query}&include_adult=false"
+    #https://api.themoviedb.org/3/search/multi?api_key=cb840be2847e004061e5c0d2c9f0f0aa&language=en-US&query=joker&page=1&include_adult=false
+    req = requests.get(endpoint)
+    pprint.pprint(endpoint)
+    pprint.pprint(req.status_code)
+
+    movies=[]
+    
+    if req.status_code == 200:
+        data = req.json()
+        results = data['results']
+        if len(results) > 0:
+            print(results[0].keys())
+            movie_ids = set()
+            for result in results:
+                print(result['media_type'])
+                if (result['media_type'] == "movie" or result['media_type'] == "tv") :
+                    img_url = f"{img_url_endpoint_size}{result['poster_path']}"
+                    result['poster_path'] = img_url
+            movies = results
+        else:    
+            flash("Fail on Loading List", 'error')
+    else:    
+        flash("Fail on Loading List", 'error')
+        return redirect(url_for("list_movies"))
+
+    watchlist = []
+    watched_list = []
+    liked_list = []
+    favorite_list = []
+    my_movies = []
+    if session.get('user'):
+        if session['user']:
+            user_id = get_user_id()
+            watchlist = load_watchlist(user_id)
+            watched_list = load_watched_list(user_id)
+            liked_list = load_liked_list(user_id)
+            favorite_list = load_favorite_list(user_id)
+            my_movies = load_my_movies(user_id)
+
+    return render_template("search_results.html", movies=movies, 
+        list_name=lists_name, list_type=list_type, 
+        watchlist=watchlist, watched_list=watched_list, 
+        liked_list=liked_list, favorite_list=favorite_list,
+        my_movies=my_movies )
+
+
 def load_watchlist(user_id):
     watchlist = mongo.db.movies_users.find({"user_id": ObjectId(user_id),
         "to_watch": "on"})
@@ -148,12 +203,16 @@ def view_movie(list_type, movie_id):
     endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
     req = requests.get(endpoint)
     pprint.pprint(endpoint)
+    movies = []
     if req.status_code == 200:
         data = req.json()
         img_url = f"{img_url_endpoint_size}{data['poster_path']}"
         data['poster_path'] = img_url
         #pprint.pprint(data['poster_path'])
         movies = data
+    else:    
+        flash("Fail on Loading Title", 'error')
+        return redirect(url_for("list_movies"))
     return render_template("view_movies.html", movies=movies, 
         list_type=list_type, movies_users=movies_users)
 

@@ -127,3 +127,13 @@ $(".trigger-modal-delete").click(function () {
         class="modal-close waves-effect waves-red btn red lighten-3 delete-btn">Delete</a>`)
 });
 
+
+$('#search_bar').keypress(function(event){
+
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+        var query = $.trim($('#search_bar').val());
+        window.location.href = '/search_results/search/multi/' + query ;
+    }
+
+});
