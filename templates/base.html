@@ -25,6 +25,16 @@
     
     <!--  Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!-- Init EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("user_6au7ehLY75DqZoHcBTN3y");
+      })();
+    </script>
 </head>
 <body>
     {{ toastr.include_toastr_js() }}
@@ -56,7 +66,8 @@
               <li><a href="{{ url_for('list_movies', list_type='now_playing') }}">Home</a></li>
               <!-- Dropdown Trigger -->
               <li><a class="dropdown-trigger" href="#!" data-target="dropdown_navbar">TMDB lists
-                  <i class="material-icons right">arrow_drop_down</i></a></li>
+                  <i class="material-icons right">arrow_drop_down</i></a></li>              
+              <li><a href="#contact">Contact Us</a></li>
               {% if session.user %}
                   <li>                 
                       <a class="chip tooltipped btn-flat" data-position="bottom" data-tooltip="Edit Profile"
@@ -67,7 +78,6 @@
               {% else %}
                   <li><a href="{{ url_for('login') }}">Log in</a></li>
                   <li><a href="{{ url_for('register')}}">Register</a></li>
-                  <li><a href="#">Contact Us</a></li>
               {% endif %}
             </ul>
       
@@ -76,6 +86,7 @@
               <!-- Dropdown Trigger -->
               <li><a class="dropdown-trigger
                 " href="#!" data-target="dropdown_sidenav">TMDB Movie lists<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li><a href="#contact">Contact Us</a></li>
               {% if session.user %}
                   <li>                 
                     <a class="chip tooltipped btn-flat" data-position="right" data-tooltip="Edit Profile"
@@ -86,7 +97,6 @@
               {% else %}
                   <li><a href="{{ url_for('login') }}">Log in</a></li>
                   <li><a href="{{ url_for('register')}}">Register</a></li>
-                  <li><a href="#">Contact Us</a></li>
               {% endif %}
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -157,12 +167,50 @@
 
         <div class="container">
           <div class="section">
-
             <div class="row">
-              <div class="col s12 center">
+              <div id="contact" class="col s12 contact center">
                 <h3><i class="mdi-content-send brown-text"></i></h3>
                 <h4>Contact Us</h4>
-                 <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat.;</p>
+                <div class="center-form contact-form">
+                  <form id="contactForm" onsubmit="return sendEmail(this);">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      class="form-control name"
+                      placeholder="Name"
+                      required
+                    />
+                    <input
+                      type="email"
+                      name="e-mail"
+                      id="email"
+                      class="form-control email"
+                      placeholder="Email"
+                      required
+                    />
+                    <textarea
+                      rows="5"
+                      name="comment"
+                      id="comment"
+                      class="form-control comment"
+                      placeholder="Place your comment here!"
+                      required
+                    ></textarea>
+                    <div class="form-row text-center">
+                      <div class="col s12 center-align">
+                        <br>
+                        <button
+                          type="submit"
+                          id="btn-submit"
+                          class="btn btn-secondary mt-1"
+                        > <i class="material-icons left">mail</i>
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
 
@@ -228,6 +276,7 @@
       <script src="{{ url_for('static', filename='js/materialize.js')}}"></script>
       <script src="{{ url_for('static', filename='js/init.js')}}"></script>
       <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/sendEmail.js')}}"></script>
 
 </body>
 </html>
