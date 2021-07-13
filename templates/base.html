@@ -22,7 +22,9 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     
     <link href="{{ url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-    
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
     <!--  Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <!-- Init EmailJS -->
@@ -177,7 +179,7 @@
                       type="text"
                       name="name"
                       id="name"
-                      class="form-control name validate"
+                      class="form-control name validate tooltipped" data-position="Bottom" data-tooltip="Type your Name"
                       placeholder="Name"
                       required
                     />
@@ -185,7 +187,7 @@
                       type="email"
                       name="e-mail"
                       id="email"
-                      class="form-control email validate"
+                      class="form-control email validate tooltipped" data-position="Bottom" data-tooltip="Add your Email"
                       placeholder="Email"
                       required
                     />
@@ -193,7 +195,7 @@
                       rows="5"
                       name="comment"
                       id="comment"
-                      class="form-control comment validate"
+                      class="form-control comment validate tooltipped" data-position="Bottom" data-tooltip="Add your Comment"
                       placeholder="Place your comment here!"
                       required
                     ></textarea>
