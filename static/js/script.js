@@ -1,6 +1,3 @@
-var movie_id;
-var list_type;
-
 $(document).ready(function () {
     if ($(window).width() < 470) {
         $('.carousel').carousel({
@@ -137,4 +134,12 @@ $('#search_bar').keypress(function(event){
         window.location.href = query ;
     }
 
+});
+
+$(".tab-list").click(function () {
+    if ($(this).attr('class') == 'tab-list'){
+        var tab = $(this).attr('href');
+        query = '/' + tab;
+        window.location.href = query ;
+    }
 });

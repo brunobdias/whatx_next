@@ -1,42 +1,43 @@
 {% extends 'base.html' %}
     {% block content %}
-        <div class="carousel-container">
-            <h3 class="center-align s12 text-shadow high-light-head">
-                <mark>&nbsp {{ list_name }} &nbsp</mark>
-            </h3>
-            <div class="carousel">
-                {% for movie in movies %}
-                    {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                        {% if list_type == 'movie' %}
-                            {% set title = movie['title'] %}
-                        {% else %}
-                            {% set title = movie['name'] %}
-                        {% endif %}
-                        <a class="carousel-item tooltipped center-align img-hover-zoom" 
-                            href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
-                            data-position="bottom" data-tooltip="{{title}}">
-                            <img src="{{movie['poster_path']}}"  alt="Title Cover">
-                            {{title}}
-                        </a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div> 
+        <div class="col s12">
+            <ul class="tabs">
+            <li class="tab col"><a class="active" href="#tab1"><i class="material-icons">local_movies</i> {{ list_name }}</a></li>
+            <li class="tab col"><a href="#tab2"><i class="material-icons">add_box</i> Watchlist</a></li>
+            <li class="tab col"><a href="#tab3"><i class="material-icons">check_box</i> Watched</a></li>
+            <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
+            <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
+            <li class="tab col"><a href="#my_movies"><i class="material-icons">settings</i> My Movies</a></li>
+            <li class="tab col"><a href="#tab7">Reviews Panel</a></li>
+            </ul>
+            <br>
+            <br>
+        </div>
 
         <div class="row">
-            <div class="col s12">
-              <ul class="tabs">
-                <li class="tab col"><a class="active" href="#tab1"><i class="material-icons">local_movies</i> {{ list_name }}</a></li>
-                <li class="tab col"><a  href="#tab2"><i class="material-icons">add_box</i> Watchlist</a></li>
-                <li class="tab col"><a href="#tab3"><i class="material-icons">check_box</i> Watched</a></li>
-                <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
-                <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
-                <li class="tab col"><a href="#my_movies"><i class="material-icons">settings</i> My Movies</a></li>
-                <li class="tab col"><a href="#tab7">Reviews Panel</a></li>
-                
-              </ul>
-            </div>
             <div id="tab1" class="col lists">
+                <div class="carousel-container">
+                    <h3 class="center-align s12 text-shadow high-light-head">
+                        <mark>&nbsp {{ list_name }} &nbsp</mark>
+                    </h3>
+                    <div class="carousel">
+                        {% for movie in movies %}
+                            {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
+                                {% if list_type == 'movie' %}
+                                    {% set title = movie['title'] %}
+                                {% else %}
+                                    {% set title = movie['name'] %}
+                                {% endif %}
+                                <a class="carousel-item tooltipped center-align img-hover-zoom" 
+                                    href="{{ url_for('view_movie', list_type=list_type, movie_id=movie.id) }}" 
+                                    data-position="bottom" data-tooltip="{{title}}">
+                                    <img src="{{movie['poster_path']}}"  alt="Title Cover">
+                                    {{title}}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div> 
                 <ul id="ul-lists">
                     {% for movie in movies %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
