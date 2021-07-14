@@ -194,22 +194,22 @@ def view_movie(list_type, movie_id):
         data = req.json()
         img_url = f"{img_url_endpoint_size}{data['poster_path']}"
         data['poster_path'] = img_url
-
-        if data['release_date'] != "":
-            date_str = datetime.strptime(data['release_date'], '%Y-%m-%d').date()
-            data['release_date'] = datetime.strftime(date_str, '%d/%m/%Y')
-        if data['budget'] != "":
-            budget = int(data['budget'])
-            if budget > 0 :
-                data['budget'] = str(babel.numbers.format_currency( decimal.Decimal(data['budget']), "USD" ))
-            else:
-                data['budget'] = ""
-        if data['revenue'] != "":
-            revenue = int(data['revenue'])
-            if revenue > 0 :
-                data['revenue'] = str(babel.numbers.format_currency( decimal.Decimal(data['revenue']), "USD" ))
-            else:
-                data['revenue'] = ""
+        if list_type == 'movie' :
+            if data['release_date'] != "":
+                date_str = datetime.strptime(data['release_date'], '%Y-%m-%d').date()
+                data['release_date'] = datetime.strftime(date_str, '%d/%m/%Y')
+            if data['budget'] != "":
+                budget = int(data['budget'])
+                if budget > 0 :
+                    data['budget'] = str(babel.numbers.format_currency( decimal.Decimal(data['budget']), "USD" ))
+                else:
+                    data['budget'] = ""
+            if data['revenue'] != "":
+                revenue = int(data['revenue'])
+                if revenue > 0 :
+                    data['revenue'] = str(babel.numbers.format_currency( decimal.Decimal(data['revenue']), "USD" ))
+                else:
+                    data['revenue'] = ""
         #pprint.pprint(data['poster_path'])
         movies = data
     else:    
