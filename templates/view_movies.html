@@ -105,7 +105,7 @@
               Title:
               {{movies['name']}}
             {% endif %}
-            {% if movies['homepage']|length > 0 %}
+            {% if movies['homepage'] != None %}
               | <a href="{{ movies['homepage']}}"><i class="material-icons">link</i>URL</a>
             {% endif %}
             | TMDB Rate <mark>{{ movies['vote_average']}}</mark> | Votes {{ movies['vote_count']}}
@@ -115,13 +115,17 @@
             {{ movies['overview' ]}}
           </blockquote>
           <hr/>
-          <span>Genre: </span>
-          {% for genre in movies['genres'] %}
-            <a class="btn-flat white btn-format">{{ genre['name'] }}</a>
-          {% endfor %}
-          <hr/>
+          {% if movies['genres'] != [] %}
+            <span>Genre: </span>
+            {% for genre in movies['genres'] %}
+              <a class="btn-flat white btn-format">{{ genre['name'] }}</a>
+            {% endfor %}
+            <hr/>
+          {% endif %}
           {% if movies['status'] == "Released" %}
+            {% if movies['release_date'] != "" %}
             <span>Release Date: </span> {{ movies['release_date'] }} <br>
+            {% endif %}
             <span>Status: </span> {{ movies['status'] }}
           {% else %}
             <span>Release Status: </span> {{ movies['status'] }}
@@ -132,26 +136,30 @@
             <span>IMDB ID: </span>{{ movies['imdb_id'] }}
           {% endif %}
           <hr/>
-          <span>Spoken Languages: </span> <br>
-          {% for language in movies['spoken_languages'] %}
-            <a class="btn-flat white btn-format">{{ language['english_name'] }}</a>
-          {% endfor %}
-          <hr/>
-          <span>Production Companies: </span> <br>
-          {% for company in movies['production_companies'] %}
-            <a class="btn-flat white btn-format">{{ company['name'] }}</a><br>
-          {% endfor %}
-          <hr/>
+          {% if movies['spoken_languages'] != [] %}
+            <span>Spoken Languages: </span> <br>
+            {% for language in movies['spoken_languages'] %}
+              <a class="btn-flat white btn-format">{{ language['english_name'] }}</a>
+            {% endfor %}
+            <hr/>
+          {% endif %}
+          {% if movies['production_companies'] != [] %}
+            <span>Production Companies: </span> <br>
+            {% for company in movies['production_companies'] %}
+              <a class="btn-flat white btn-format">{{ company['name'] }}</a><br>
+            {% endfor %}
+            <hr/>
+          {% endif %}
       </li>
       {% if list_type == 'movie' %}
-        {% if (movies['budget'] > 0) or (movies['revenue'] > 0) %}
+        {% if (movies['budget'] != "") or (movies['revenue'] != "") %}
           <li>
             <div class="collapsible-header"><i class="material-icons">attach_money</i>Revenue</div>
             <div class="collapsible-body">
-              {% if (movies['budget'] > 0) %}
+              {% if (movies['budget'] != "") %}
                 <a class="btn-flat white btn-format"><span>Budget: </span> {{ movies['budget'] }}</a>
               {% endif %}
-              {% if (movies['revenue'] > 0) %}
+              {% if (movies['revenue'] != "") %}
                 <a class="btn-flat white btn-format"><span>Revenue: </span> {{ movies['revenue'] }}</a>
               {% endif %}
             </div>
