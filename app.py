@@ -466,6 +466,7 @@ def delete_user():
         if session['user']:
             user_id = get_user_id()
 
+            mongo.db.movies_users_reviews.remove({"user_id": ObjectId(user_id)})
             mongo.db.movies_users.remove({"user_id": ObjectId(user_id)})
             mongo.db.users.remove({"_id": ObjectId(user_id)})
             
