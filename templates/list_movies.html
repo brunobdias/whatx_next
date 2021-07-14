@@ -61,18 +61,14 @@
             <div id="tab2" class="col s12">
                 <ul id="ul-lists">
                     {% for movie in watchlist %}
-                        {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                            {% if list_type == 'movie' %}
-                                {% set title = movie['title'] %}
-                            {% else %}
-                                {% set title = movie['name'] %}
-                            {% endif %}
+                        {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}                          
+                            {% set title = movie['title'] %}
                             <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
-                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                                href="{{ url_for('view_movie', list_type=movie['list_type'], movie_id=movie['movie_id']) }}" 
                                 data-position="bottom" data-tooltip="{{title}}">
                                 <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
                                 <mark><div class="title">
-                                    {{title}}
+                                    {{title}} 
                                 </div></mark>
                                 </a> <br> 
                             </li>
@@ -94,13 +90,9 @@
                 <ul id="ul-lists">
                     {% for movie in watched_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                            {% if list_type == 'movie' %}
-                                {% set title = movie['title'] %}
-                            {% else %}
-                                {% set title = movie['name'] %}
-                            {% endif %}
+                            {% set title = movie['title'] %}
                             <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
-                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                                href="{{ url_for('view_movie', list_type=movie['list_type'], movie_id=movie['movie_id']) }}" 
                                 data-position="bottom" data-tooltip="{{title}}">
                                 <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
                                 <mark><div class="title">
@@ -126,13 +118,9 @@
                 <ul id="ul-lists">
                     {% for movie in liked_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                            {% if list_type == 'movie' %}
-                                {% set title = movie['title'] %}
-                            {% else %}
-                                {% set title = movie['name'] %}
-                            {% endif %}
+                            {% set title = movie['title'] %}
                             <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
-                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                                href="{{ url_for('view_movie', list_type=movie['list_type'], movie_id=movie['movie_id']) }}" 
                                 data-position="bottom" data-tooltip="{{title}}">
                                 <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
                                 <mark><div class="title">
@@ -158,13 +146,9 @@
                 <ul id="ul-lists">
                     {% for movie in favorite_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                            {% if list_type == 'movie' %}
-                                {% set title = movie['title'] %}
-                            {% else %}
-                                {% set title = movie['name'] %}
-                            {% endif %}
+                            {% set title = movie['title'] %}
                             <li class="col item-list"><a class="tooltipped img-hover-zoom--colorize" 
-                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                                href="{{ url_for('view_movie', list_type=movie['list_type'], movie_id=movie['movie_id']) }}" 
                                 data-position="bottom" data-tooltip="{{title}}">
                                 <img src="{{movie['poster_path']}}" width="250" alt="Title Cover">
                                 <mark><div class="title">
@@ -190,16 +174,10 @@
                 <ul id="ul-lists">
                     {% for movie in my_movies %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
-                            {% set v_movie_id = movie['_id'] %}
-                            {% set v_list_type = list_type %}
-                            {% if list_type == 'movie' %}
-                                {% set title = movie['title'] %}
-                            {% else %}
-                                {% set title = movie['name'] %}
-                            {% endif %}
+                            {% set title = movie['title'] %}
                             <li class="col item-list">
                                 <!-- Div with Params to get movie_id from script.js -->
-                                <div id="movie_id" class="{{list_type}}" name="{{movie._id}}"></div> 
+                                <div id="movie_id" class="{{movie['list_type']}}" name="{{movie._id}}"></div> 
                                 <div class="right">
                                     <!-- Modal Trigger -->
                                     <a href="#modal-delete" class="btn waves-effect grey waves-red btn modal-trigger trigger-modal-delete" name="modalbtn">
@@ -219,13 +197,13 @@
                                         </div>
                                         <div class="modal-footer">
                                             <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
-                                            <a id="delete-btn" href="{{ url_for('delete_movie', movie_id=edt_movie_id, list_type=edt_list_type) }}" 
+                                            <a id="delete-btn" href="{{ url_for('delete_movie', movie_id=edt_movie_id, list_type=movie['list_type']) }}" 
                                             class="modal-close waves-effect waves-red btn red lighten-3 delete-btn">Delete</a>
                                         </div>
                                     </div>
                                 </div> <br>
                                 <a class="tooltipped img-hover-zoom--colorize" 
-                                href="{{ url_for('view_movie', list_type=list_type, movie_id=movie['movie_id']) }}" 
+                                href="{{ url_for('view_movie', list_type=movie['list_type'], movie_id=movie['movie_id']) }}" 
                                 data-position="bottom" data-tooltip="{{title}}">
                                 <img src="{{movie['poster_path']}}" class="img-path" width="250" alt="Title Cover">
                                 <div>
