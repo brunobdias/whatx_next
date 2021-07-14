@@ -8,7 +8,6 @@
             <li class="tab col"><a href="#tab4"><i class="material-icons">favorite</i> Liked</a></li>
             <li class="tab col"><a href="#tab5"><i class="material-icons">star</i> Favorite</a></li>
             <li class="tab col"><a href="#my_movies"><i class="material-icons">settings</i> My Movies</a></li>
-            <li class="tab col"><a href="#reviews"><i class="material-icons">format_list_bulleted</i> Reviews</a></li>
             </ul>
             <br>
             <br>
@@ -237,79 +236,6 @@
                                 </a> <br>
                             </li>
                         {% endif %}
-                    {% else %}
-                        {% if session.user %}
-                            <li class="col s12 center"><h5>Empty List</h5></li>
-                        {% else %}    
-                            <li class="col s12 center">
-                                You Must
-                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
-                                To Check Your Lists
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-            <div id="reviews" class="col s12">
-                {% for review in reviews if review['review'] != None %}
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Movie</th>
-                            <th>User</th>
-                            <th>Review</th>
-                        </tr>
-                        </thead>
-                
-                        <tbody>
-                        <tr>
-                            <td>
-                                <h5>{{review['title']}}</h5>
-                                <a class="" 
-                                    href="{{ url_for('view_movie', list_type=list_type, movie_id=review['movie_id']) }}" 
-                                    data-position="bottom" data-tooltip="{{title}}">
-                                    <img src="{{review['poster_path']}}" class="img-path" width="150" alt="Title Cover">
-                                </a>
-                            </td>
-                            <td class="s4">{{ review['user_name'] }}</td>
-                            <td class="s4"><blockquote class="blockquote overview"> 
-                                <p><em>{{ review['review'] }}</em></p>
-                              </blockquote></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                {% else %}
-                        {% if session.user %}
-                            <li class="col s12 center"><h5>Empty List</h5></li>
-                        {% else %}    
-                            <li class="col s12 center">
-                                You Must
-                                <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a>
-                                To Check Your Lists
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                <ul id="ul-reviews">
-                    {% for review in reviews if review['review'] != None %}
-                        <li>                           
-                            <div class="row">
-                                <div class="col s12">
-                                    <mark><div class="title">
-                                       <h5>{{review['title']}}</h5>
-                                    </div></mark>
-                                </div>
-                                <div class="col s12">
-
-                                    <a class="" 
-                                    href="{{ url_for('view_movie', list_type=list_type, movie_id=review['movie_id']) }}" 
-                                    data-position="bottom" data-tooltip="{{title}}">
-                                    <img src="{{review['poster_path']}}" class="img-path" width="150" alt="Title Cover"></a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6"> {{review['review']}}</div>
-                            </div>
-                        </li>
                     {% else %}
                         {% if session.user %}
                             <li class="col s12 center"><h5>Empty List</h5></li>
