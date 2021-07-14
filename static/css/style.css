@@ -160,6 +160,11 @@
   flex-flow: row wrap;
 }
 
+#ul-reviews {
+  display: grid;
+  flex-flow: column;
+}
+
 .col .item-list {
   word-break: break-all;
   height: 100%;

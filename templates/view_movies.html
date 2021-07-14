@@ -166,6 +166,36 @@
           </li>
         {% endif %}
       {% endif %}
+      <li>
+        <div class="collapsible-header"><i class="material-icons">create</i>Review</div>
+        <div class="collapsible-body">
+          Wrote or edit your review about the movie:
+          <form method="POST" 
+            action="{{ url_for('add_review', movie_id=movies['id'], list_type=list_type, title=title) }}">
+            <input type='text' name="poster_path" id="poster_path" value="{{ movies['poster_path'] }}" style='display:none;'>
+            <label for="poster_path"></label>
+            <br>
+            <textarea id="review" class="materialize-textarea"
+            name="review" id="review" value="{{ reviews['review'] }}"></textarea>
+            <label for="review">Movie Review</label>
+            <br><br>
+            <button
+              type="submit"
+              id="btn-submit-review"
+              class="btn btn-secondary"> 
+              <i class="material-icons left">create</i>Submit
+          </button>
+          <br>
+          <br>
+          {% for review in reviews %}
+          {{ review['user_name'] }}:
+            <blockquote class="blockquote overview"> 
+              <p><em>{{ review['review'] }}</em></p>
+            </blockquote>
+          {% endfor %}
+          </form>
+        </div>
+      </li>
     </ul>
   </div>
 </div>

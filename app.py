@@ -75,6 +75,7 @@ def list_movies(list_type="movie", list_name="now_playing"):
     liked_list = []
     favorite_list = []
     my_movies = []
+    reviews = []
     if session.get('user'):
         if session['user']:
             user_id = get_user_id()
@@ -83,12 +84,13 @@ def list_movies(list_type="movie", list_name="now_playing"):
             liked_list = load_liked_list(user_id)
             favorite_list = load_favorite_list(user_id)
             my_movies = load_my_movies(user_id)
+            reviews = load_reviews()
 
     return render_template("list_movies.html", movies=movies, 
         list_name=lists_name, list_type=list_type, 
         watchlist=watchlist, watched_list=watched_list, 
         liked_list=liked_list, favorite_list=favorite_list,
-        my_movies=my_movies )
+        my_movies=my_movies, reviews=reviews )
 
 
 @app.route("/search_results/<list_type>/<list_name>/<page>/<query>", methods=['GET', 'POST'])
@@ -103,7 +105,6 @@ def search_results(list_type, list_name, query, page=1):
     req = requests.get(endpoint)
     #pprint.pprint(endpoint)
     #pprint.pprint(req.status_code)
-
 
     movies=[]
 
@@ -153,8 +154,18 @@ def load_favorite_list(user_id):
     return favorite_list
 
 def load_my_movies(user_id):
-    favorite_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id)})
-    return favorite_list
+    my_movies_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id)})
+    return my_movies_list
+
+def load_reviews(movie_id = ""):
+    if movie_id == "":
+        print("retornou tudo")
+        reviews_list = mongo.db.movies_users_reviews.find()
+    else:
+        print("retornou só o filme")            
+        reviews_list = mongo.db.movies_users_reviews.find({
+        "movie_id": movie_id})
+    return reviews_list
 
 
 def get_user_id():
@@ -190,6 +201,7 @@ def view_movie(list_type, movie_id):
     req = requests.get(endpoint)
     pprint.pprint(endpoint)
     movies = []
+    reviews = []
     if req.status_code == 200:
         data = req.json()
         img_url = f"{img_url_endpoint_size}{data['poster_path']}"
@@ -212,11 +224,14 @@ def view_movie(list_type, movie_id):
                     data['revenue'] = ""
         #pprint.pprint(data['poster_path'])
         movies = data
+        print(user_id)
+        print(movie_id)
+        reviews = load_reviews(movie_id)
     else:    
         flash("Fail on Loading Title", 'error')
         return redirect(url_for("list_movies"))
     return render_template("view_movies.html", movies=movies, 
-        list_type=list_type, movies_users=movies_users)
+        list_type=list_type, movies_users=movies_users, reviews=reviews)
 
 
 ### Get list_type return list_name
@@ -386,6 +401,45 @@ def add_list(movie_id, list_type, title):
 
     return redirect(url_for("view_movie", list_type=list_type,
          movie_id=movie_id))
+
+
+@app.route("/add_review/<movie_id>/<list_type>/<title>/", methods=["GET", "POST"])
+def add_review(movie_id, list_type, title):
+    print(movie_id)
+    print(list_type)
+    print(title)
+    if session.get('user'):
+        if len(session["user"]) > 0:
+            #print("request.method" + request.method)
+            if request.method == "POST":
+                print("Start")
+                user_name = session["user"]
+                user_id = mongo.db.users.find_one(
+                    {"username": session["user"]})["_id"]
+                print("List")            
+                list = {
+                        "movie_id": movie_id,
+                        "poster_path": request.form.get("poster_path"),
+                        "title": title,
+                        "list_type": list_type,
+                        "user_id": ObjectId(user_id),
+                        "user_name": user_name.title(),
+                        "review": request.form.get("review")
+                    }
+                print("Movie start add")
+                mongo.db.movies_users_reviews.update({"movie_id": movie_id, 
+                    "user_id": ObjectId(user_id)}, list, upsert=True)
+                
+                print("Movie add")
+                flash("Review Updated", 'success')
+    else:
+        flash("You must log in first", 'warning')
+        return redirect(url_for("login"))
+
+    return redirect(url_for("view_movie", list_type=list_type,
+         movie_id=movie_id))
+
+
 
 
 @app.route("/delete_movie/<movie_id>")
