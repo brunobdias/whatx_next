@@ -75,7 +75,6 @@ def list_movies(list_type="movie", list_name="now_playing"):
     liked_list = []
     favorite_list = []
     my_movies = []
-    reviews = []
     if session.get('user'):
         if session['user']:
             user_id = get_user_id()
@@ -84,13 +83,12 @@ def list_movies(list_type="movie", list_name="now_playing"):
             liked_list = load_liked_list(user_id)
             favorite_list = load_favorite_list(user_id)
             my_movies = load_my_movies(user_id)
-            reviews = load_reviews()
 
     return render_template("list_movies.html", movies=movies, 
         list_name=lists_name, list_type=list_type, 
         watchlist=watchlist, watched_list=watched_list, 
         liked_list=liked_list, favorite_list=favorite_list,
-        my_movies=my_movies, reviews=reviews )
+        my_movies=my_movies )
 
 
 @app.route("/search_results/<list_type>/<list_name>/<page>/<query>", methods=['GET', 'POST'])
@@ -157,14 +155,15 @@ def load_my_movies(user_id):
     my_movies_list = mongo.db.movies_users.find({"user_id": ObjectId(user_id)})
     return my_movies_list
 
-def load_reviews(movie_id = ""):
-    if movie_id == "":
-        print("retornou tudo")
-        reviews_list = mongo.db.movies_users_reviews.find()
-    else:
-        print("retornou só o filme")            
+def load_reviews(movie_id, user_id=""):
+    if user_id == "":
         reviews_list = mongo.db.movies_users_reviews.find({
         "movie_id": movie_id})
+    else:
+        reviews_list = mongo.db.movies_users_reviews.find_one({
+        "user_id": ObjectId(user_id),
+        "movie_id": movie_id})
+
     return reviews_list
 
 
@@ -183,9 +182,9 @@ def user_must_log_in():
 #https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
 @app.route("/view_movie/<list_type>/<movie_id>", methods=["GET", "POST"])
 def view_movie(list_type, movie_id):
-    
+    print(list_type)
     movies_users = ''
-
+    user_id = ''
     if session.get('user'):
         if session['user']:
             user_id = get_user_id()
@@ -224,14 +223,17 @@ def view_movie(list_type, movie_id):
                     data['revenue'] = ""
         #pprint.pprint(data['poster_path'])
         movies = data
-        print(user_id)
-        print(movie_id)
         reviews = load_reviews(movie_id)
+        review_movie_user = ""
+        if user_id != '':
+            review_movie_user = load_reviews(movie_id, user_id)
+ 
     else:    
         flash("Fail on Loading Title", 'error')
         return redirect(url_for("list_movies"))
     return render_template("view_movies.html", movies=movies, 
-        list_type=list_type, movies_users=movies_users, reviews=reviews)
+        list_type=list_type, movies_users=movies_users, reviews=reviews,
+        review_movie_user=review_movie_user)
 
 
 ### Get list_type return list_name
@@ -439,8 +441,15 @@ def add_review(movie_id, list_type, title):
     return redirect(url_for("view_movie", list_type=list_type,
          movie_id=movie_id))
 
-
-
+@app.route("/delete_review/<movie_id>/<list_type>/<title>/<review_id>")
+def delete_review(movie_id, list_type, title, review_id):
+    
+    mongo.db.movies_users_reviews.remove({"_id": ObjectId(review_id)})
+        
+    flash("Review Removed", 'success')
+    
+    return redirect(url_for("view_movie", list_type=list_type,
+        movie_id=movie_id))
 
 @app.route("/delete_movie/<movie_id>")
 def delete_movie(movie_id):

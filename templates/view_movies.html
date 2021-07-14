@@ -184,15 +184,37 @@
               id="btn-submit-review"
               class="btn btn-secondary"> 
               <i class="material-icons left">create</i>Submit
-          </button>
-          <br>
-          <br>
-          {% for review in reviews %}
-          {{ review['user_name'] }}:
-            <blockquote class="blockquote overview"> 
-              <p><em>{{ review['review'] }}</em></p>
-            </blockquote>
-          {% endfor %}
+            </button>
+              {% if review_movie_user['_id'] %}
+              <!-- Modal trigger -->
+              <a href="#delete-review" class="btn red text-shadow btn delete-review modal-trigger">
+                <i class="fas fa-times-circle left "></i>Delete Review
+              </a>
+            
+              <!-- Modal Structure -->
+              <div id="delete-review" class="modal">
+                <div class="modal-content">
+                <h4>Delete Movie Review <i class="medium material-icons right">warning</i></h4>
+                <p>These will delete your review for this movie</p>
+                </div>
+                <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+                <a href="{{url_for('delete_review', movie_id=movies['id'], list_type=list_type, title=title, review_id=review_movie_user['_id'])}}" 
+                  class="modal-close red lighten-2 waves-effect waves-red btn">Delete</a>
+                </div>
+              </div>
+              {% else %}       
+                <div></div>
+              {% endif %}
+            
+            <br>
+            <br>
+            {% for review in reviews %}
+              {{ review['user_name'] }}:
+                <blockquote class="blockquote overview"> 
+                  <p><em>{{ review['review'] }}</em></p>
+                </blockquote>
+            {% endfor %}  
           </form>
         </div>
       </li>
