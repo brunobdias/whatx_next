@@ -88,30 +88,32 @@ def list_movies(list_type="movie", list_name="now_playing"):
         my_movies=my_movies )
 
 
-@app.route("/search_results/<list_type>/<list_name>/<query>", methods=['GET', 'POST'])
-def search_results(list_type, list_name, query):
+@app.route("/search_results/<list_type>/<list_name>/<page>/<query>", methods=['GET', 'POST'])
+def search_results(list_type, list_name, query, page=1):
     lists_name = get_list_name(list_name) #Remove Character from List Name
     endpoint_path = f"/{list_type}/{list_name}"
     endpoint_api_key = f"?api_key={app.api_key}"
     endpoint_lang = "&language=en-US"
     endpoint_query = f"&language=en-US&query={query}"
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
-    endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}{endpoint_query}&include_adult=false"
-    #https://api.themoviedb.org/3/search/multi?api_key=cb840be2847e004061e5c0d2c9f0f0aa&language=en-US&query=joker&page=1&include_adult=false
+    endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}{endpoint_query}&page={page}&include_adult=false"
     req = requests.get(endpoint)
-    pprint.pprint(endpoint)
-    pprint.pprint(req.status_code)
+    #pprint.pprint(endpoint)
+    #pprint.pprint(req.status_code)
+
 
     movies=[]
-    
+
     if req.status_code == 200:
         data = req.json()
+        total_pages = data['total_pages']
+        #pprint.pprint(data)
         results = data['results']
         if len(results) > 0:
-            print(results[0].keys())
+            #print(results[0].keys())
             movie_ids = set()
             for result in results:
-                print(result['media_type'])
+                #print(result['media_type'])
                 if (result['media_type'] == "movie" or result['media_type'] == "tv") :
                     img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                     result['poster_path'] = img_url
@@ -120,9 +122,8 @@ def search_results(list_type, list_name, query):
             flash("Fail on Loading List, No results found", 'error')
     else:    
         flash("Fail on Loading List, Req. Status Code:" + req.status_code , 'error')
-        #return redirect(url_for("list_movies"))
 
-    return render_template("search_results.html", movies=movies)
+    return render_template("search_results.html", movies=movies, total_pages=total_pages, query=query, page_active=page)
 
 
 def load_watchlist(user_id):

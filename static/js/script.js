@@ -130,7 +130,7 @@ $('#search_bar').keypress(function(event){
     if(keycode == '13'){
         var query = "";
         query = $('#search_bar').val();        
-        query = '/search_results/search/multi/' + query;
+        query = '/search_results/search/multi/1/' + query;
         window.location.href = query ;
     }
 

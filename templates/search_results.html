@@ -4,11 +4,13 @@
          <div class="row">
             <div class="col s12">
               <ul class="tabs">
-                <li class="tab col"><a class="active" href="#search_results"><i class="material-icons">local_movies</i> Search Results</a></li>                
+                <li class="tab col"><a class="active" href="#search_results"><i class="material-icons">local_movies</i> Search Results in {{total_pages}} page(s)</a></li>                
               </ul>
             </div>
             <div id="search_results" class="col lists">
                 <ul id="ul-lists">
+                    {% set pages_range = total_pages | int %}
+        
                     {% for movie in movies if movie['media_type'] == 'movie' or movie['media_type'] == 'tv' %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
                             {% set list_type = movie['media_type'] %}
@@ -32,6 +34,21 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
+                
+                
+                <ul class="pagination">
+                    {% set page_start = 1 | int %}                
+                    {% set pages_range = pages_range + 1 %}
+                    {% set active_page = page_active | int %}
+
+                    {% for page_num in range(page_start, pages_range) %}
+                        {% if page_num == page_active | int %}
+                            <li class="search-pagination active"><a href="/search_results/search/multi/{{page_num}}/{{query}}"></a>{{page_num}}</li>
+                        {% else  %}
+                            <li class="waves-effect"><a href="/search_results/search/multi/{{page_num}}/{{query}}">{{page_num}}</a></li>
+                        {% endif  %}
+                    {% endfor %}
+                </ul>                        
             </div>
         </div>
     {% endblock content %}
