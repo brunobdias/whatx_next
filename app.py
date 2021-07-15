@@ -473,10 +473,10 @@ def delete_user():
     flash("User Account Deleted", 'success')
     return redirect(url_for("logout"))
 
-@app.route("/redir/<anchor>")
-def redir(anchor):
-    print("chegou redirect")
-    return redirect(url_for('list_movies', _anchor=anchor))
+@app.route("/email_sent/")
+def email_sent():
+    flash("Email Sent", 'success')
+    return redirect(url_for("list_movies", _anchor="contact"))
 
 #https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
 @app.errorhandler(404)

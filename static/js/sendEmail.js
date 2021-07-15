@@ -13,7 +13,7 @@ function sendEmail(contactForm) {
           //Credit to https://stackoverflow.com/questions/6653556/jquery-javascript-function-to-clear-all-the-fields-of-a-form
           $("#contactForm").trigger("reset");
           //End Credit
-          alert("Email Sent!", response.status, response.text);
+          window.location.href = '/email_sent/';
         },
         function (error) {
           alert("FAILED...", error);
