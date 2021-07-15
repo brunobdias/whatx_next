@@ -169,7 +169,7 @@
       <li>
         <div class="collapsible-header"><i class="material-icons">create</i>Review</div>
         <div class="collapsible-body">
-          Wrote or edit your review about the movie:
+          Write or edit your review about the movie:
           <form method="POST" 
             action="{{ url_for('add_review', movie_id=movies['id'], list_type=list_type, title=title) }}">
             <input type='text' name="poster_path" id="poster_path" value="{{ movies['poster_path'] }}" style='display:none;'>

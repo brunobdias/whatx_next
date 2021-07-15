@@ -17,7 +17,7 @@
             <div id="tab1" class="col lists">
                 <div class="carousel-container">
                     <h3 class="center-align s12 text-shadow high-light-head">
-                        <mark>&nbsp {{ list_name }} &nbsp</mark>
+                        <mark>&nbsp; {{ list_name }} &nbsp;</mark>
                     </h3>
                     <div class="carousel">
                         {% for movie in movies %}
@@ -59,7 +59,7 @@
                 </ul>
             </div>
             <div id="tab2" class="col s12">
-                <ul id="ul-lists">
+                <ul id="ul-lists-watchlist">
                     {% for movie in watchlist %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}                          
                             {% set title = movie['title'] %}
@@ -87,7 +87,7 @@
                 </ul>
             </div>
             <div id="tab3" class="col s12">
-                <ul id="ul-lists">
+                <ul id="ul-lists-watched">
                     {% for movie in watched_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
                             {% set title = movie['title'] %}
@@ -115,7 +115,7 @@
                 </ul>
             </div>
             <div id="tab4" class="col s12">
-                <ul id="ul-lists">
+                <ul id="ul-lists-liked">
                     {% for movie in liked_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
                             {% set title = movie['title'] %}
@@ -143,7 +143,7 @@
                 </ul>
             </div>
             <div id="tab5" class="col s12">
-                <ul id="ul-lists">
+                <ul id="ul-lists-favorite">
                     {% for movie in favorite_list %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
                             {% set title = movie['title'] %}
@@ -171,7 +171,7 @@
                 </ul>
             </div>
             <div id="my_movies" class="col s12">
-                <ul id="ul-lists">
+                <ul id="ul-lists-mymovies">
                     {% for movie in my_movies %}
                         {% if movie['poster_path'] != 'https://image.tmdb.org/t/p/w500None' %}
                             {% set title = movie['title'] %}

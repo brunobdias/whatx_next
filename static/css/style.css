@@ -155,7 +155,12 @@
 /*-CSS flexbox
   https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox*/
 
-#ul-lists {
+#ul-lists,
+#ul-lists-watchlist,
+#ul-lists-watched,
+#ul-lists-liked,
+#ul-lists-favorite,
+#ul-lists-mymovies {
   display: flex;
   flex-flow: row wrap;
 }
