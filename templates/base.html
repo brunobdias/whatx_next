@@ -14,14 +14,14 @@
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Materialize Compiled and minified CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="{{ url_for('static', filename='css/style_mat.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ url_for('static', filename='css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen"/>
+    <link href="{{ url_for('static', filename='css/style_mat.css')}}" type="text/css" rel="stylesheet" media="screen"/>
     <!-- Animated Checkboxes -->
     <!-- src https://codepen.io/jaradlight/pen/IEbKq -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     
-    <link href="{{ url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="screen"/>
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
@@ -29,10 +29,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <!-- Init EmailJS -->
     <script
-      type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
     ></script>
-    <script type="text/javascript">
+    <script>
       (function () {
         emailjs.init("user_6au7ehLY75DqZoHcBTN3y");
       })();
@@ -61,7 +60,7 @@
             <li><a href="{{ url_for('list_movies', list_type='tv', list_name='on_the_air') }}">TV On The Air</a></li>
             <li><a href="{{ url_for('list_movies', list_type='tv', list_name='popular') }}">TV Popular</a></li>
         </ul>
-        <nav class="white" role="navigation">
+        <nav class="white">
           <div class="nav-wrapper container navbar">
             <a id="logo-container" href="{{ url_for('list_movies', list_type='now_playing') }}" class="brand-logo">Whatx Next?</a>
             <ul class="right hide-on-med-and-down">
@@ -121,7 +120,7 @@
                         <div class="input-field">
                             <i class="material-icons prefix">search</i>
                             <input type="text" id="search_bar" value=" " class="materialize-textarea search_bar validate"
-                            minlength="5" maxlength="50" pattern="^[a-zA-Z0-9]{5,50}$"></input>
+                            minlength="5" maxlength="50" pattern="^[a-zA-Z0-9]{5,50}$">
                             <label for="search_bar">To Search Press "Enter" </label>
                         </div>
                     </div>
