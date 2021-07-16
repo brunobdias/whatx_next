@@ -14,7 +14,6 @@ from datetime import datetime
 if os.path.exists("env.py"):
     import env
 import requests
-import pprint
 import babel.numbers
 import decimal
 
@@ -38,8 +37,7 @@ toastr = Toastr()
 toastr.init_app(app)
 
 
-"""
-    list_type: now_playing, popular, top_rated, upcoming
+""" list_type: now_playing, popular, top_rated, upcoming
     URL SAMPLE# https://api.themoviedb.org/3/movie/<list_type>?api_key=<api_key>&language=en-US
 """
 @app.route("/", methods=['GET', 'POST'])
@@ -54,18 +52,14 @@ def list_movies(list_type="movie", list_name="now_playing"):
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
     endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
     req = requests.get(endpoint)
-    pprint.pprint(endpoint)
     if req.status_code == 200:
         data = req.json()
         results = data['results']
         if len(results) > 0:
-            print(results[0].keys())
             movie_ids = set()
             for result in results:
                 img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                 result['poster_path'] = img_url
-                #_id = result['id']
-                #movie_ids.add(_id)
             movies = results
         else:    
             flash("Fail on Loading List", 'error')
@@ -101,21 +95,16 @@ def search_results(list_type, list_name, query, page=1):
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
     endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}{endpoint_query}&page={page}&include_adult=false"
     req = requests.get(endpoint)
-    #pprint.pprint(endpoint)
-    #pprint.pprint(req.status_code)
 
     movies=[]
 
     if req.status_code == 200:
         data = req.json()
         total_pages = data['total_pages']
-        #pprint.pprint(data)
         results = data['results']
         if len(results) > 0:
-            #print(results[0].keys())
             movie_ids = set()
             for result in results:
-                #print(result['media_type'])
                 if (result['media_type'] == "movie" or result['media_type'] == "tv") :
                     img_url = f"{img_url_endpoint_size}{result['poster_path']}"
                     result['poster_path'] = img_url
@@ -178,11 +167,11 @@ def user_must_log_in():
     flash("You must log in first", 'warning')
     return redirect(url_for("login"))
 
+
 ### URL SAMPLE - GET /movie/{movie_id}
 #https://api.themoviedb.org/3/movie/{movie_id}?api_key=<api_key>
 @app.route("/view_movie/<list_type>/<movie_id>", methods=["GET", "POST"])
 def view_movie(list_type, movie_id):
-    print(list_type)
     movies_users = ''
     user_id = ''
     if session.get('user'):
@@ -198,7 +187,6 @@ def view_movie(list_type, movie_id):
     img_url_endpoint_size = "https://image.tmdb.org/t/p/w500"
     endpoint = f"{api_url_src}{app.api_version}{endpoint_path}{endpoint_api_key}{endpoint_lang}"
     req = requests.get(endpoint)
-    pprint.pprint(endpoint)
     movies = []
     reviews = []
     if req.status_code == 200:
@@ -221,13 +209,11 @@ def view_movie(list_type, movie_id):
                     data['revenue'] = str(babel.numbers.format_currency( decimal.Decimal(data['revenue']), "USD" ))
                 else:
                     data['revenue'] = ""
-        #pprint.pprint(data['poster_path'])
         movies = data
         reviews = load_reviews(movie_id)
         review_movie_user = ""
         if user_id != '':
             review_movie_user = load_reviews(movie_id, user_id)
- 
     else:    
         flash("Fail on Loading Title", 'error')
         return redirect(url_for("list_movies"))
@@ -285,8 +271,6 @@ def login():
                 existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 
-                #print(existing_user["_id"])
-                #pprint.pprint(existing_user)
                 flash("Welcome, {}".format(
                     request.form.get("username")), 'success')
                 return redirect(url_for(
@@ -363,23 +347,18 @@ def edit_profile(user_id):
     
     # put the new user into 'session' cookie
     session["user"] = username
-    #return render_template("edit_profile.html", user=user, user_id=user_id)
     return redirect(url_for("edit_profile_page", username=username))
+
 
 @app.route("/add_list/<movie_id>/<list_type>/<title>/", methods=["GET", "POST"])
 def add_list(movie_id, list_type, title):
-    print(movie_id)
-    print(list_type)
-    print(title)
+
     if session.get('user'):
         if len(session["user"]) > 0:
-            #print("request.method" + request.method)
             if request.method == "POST":
-                print("Start")
                 
                 user_id = mongo.db.users.find_one(
                     {"username": session["user"]})["_id"]
-                print("List")            
                 list = {
                         "movie_id": movie_id,
                         "poster_path": request.form.get("poster_path"),
@@ -391,11 +370,9 @@ def add_list(movie_id, list_type, title):
                         "liked": request.form.get("edt_liked"),
                         "favorite": request.form.get("edt_favorite")
                     }
-                print("Movie start add")
                 mongo.db.movies_users.update({"movie_id": movie_id, 
                     "user_id": ObjectId(user_id)}, list, upsert=True)
                 
-                print("Movie add")
                 flash("Lists Updated", 'success')
     else:
         flash("You must log in first", 'warning')
@@ -407,18 +384,16 @@ def add_list(movie_id, list_type, title):
 
 @app.route("/add_review/<movie_id>/<list_type>/<title>/", methods=["GET", "POST"])
 def add_review(movie_id, list_type, title):
-    print(movie_id)
-    print(list_type)
-    print(title)
+
     if session.get('user'):
         if len(session["user"]) > 0:
-            #print("request.method" + request.method)
+
             if request.method == "POST":
-                print("Start")
+                
                 user_name = session["user"]
                 user_id = mongo.db.users.find_one(
                     {"username": session["user"]})["_id"]
-                print("List")            
+                         
                 list = {
                         "movie_id": movie_id,
                         "poster_path": request.form.get("poster_path"),
@@ -428,11 +403,9 @@ def add_review(movie_id, list_type, title):
                         "user_name": user_name.title(),
                         "review": request.form.get("review")
                     }
-                print("Movie start add")
                 mongo.db.movies_users_reviews.update({"movie_id": movie_id, 
                     "user_id": ObjectId(user_id)}, list, upsert=True)
                 
-                print("Movie add")
                 flash("Review Updated", 'success')
     else:
         flash("You must log in first", 'warning')
@@ -440,6 +413,7 @@ def add_review(movie_id, list_type, title):
 
     return redirect(url_for("view_movie", list_type=list_type,
          movie_id=movie_id))
+
 
 @app.route("/delete_review/<movie_id>/<list_type>/<title>/<review_id>")
 def delete_review(movie_id, list_type, title, review_id):
@@ -451,6 +425,7 @@ def delete_review(movie_id, list_type, title, review_id):
     return redirect(url_for("view_movie", list_type=list_type,
         movie_id=movie_id))
 
+
 @app.route("/delete_movie/<movie_id>")
 def delete_movie(movie_id):
 
@@ -458,6 +433,7 @@ def delete_movie(movie_id):
         
     flash("Title Removed", 'success')
     return redirect(url_for("list_movies", _anchor="my_movies"))
+
 
 @app.route("/delete_user")
 def delete_user():
@@ -473,18 +449,22 @@ def delete_user():
     flash("User Account Deleted", 'success')
     return redirect(url_for("logout"))
 
+
 @app.route("/email_sent/")
 def email_sent():
     flash("Email Sent", 'success')
     return redirect(url_for("list_movies", _anchor="contact"))
 
+
+#Source:
 #https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404     
 
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True) #Change to debug to false before deployment final version
+            debug=False)
