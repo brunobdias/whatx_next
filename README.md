@@ -64,6 +64,7 @@
 > - Logout.
 > - Contact the page owner to request something or get in touch.
 > - Delete my user account, excluding all reviews and lists.
+> #### Not Implemented
 > - Discover related movies.
 > - Login using my google account.
 
@@ -73,7 +74,10 @@
 > - The desing is based on the [Parallax](https://materializecss.com/templates/parallax-template/preview.html) template from materialize 
 
 #### Framework
-> - Flask Framework
+> - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+> - [Jquery](https://jquery.com/)
+> - [Materialize](https://materializecss.com/)
+
 #### Color Scheme
 > - The color scheme is based on the [Parallax](https://materializecss.com/templates/parallax-template/preview.html) template from materialize 
 
@@ -97,11 +101,11 @@
 
 ## Features
 
-> All main features to the user needs were implemented, missing a few nice ones but not essentials.
+> ### User Stories
 >
 > "**_As a user, I would like to_** _______________"
 >
-> - View the website on a PC, mobile or tablet.
+> ### " View the website on a PC, mobile or tablet. "
 >   - View of it on Am I Responsive:
 > <div align="center">
 > <img src="static/img/amIresponsive.jpg">
@@ -110,7 +114,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Create my own user account.
+> ### " Create my own user account. "
 >   - Register screen to create your account.
 > <div align="center">
 > <img src="static/img/register.jpg">
@@ -119,7 +123,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Enter using my login details.
+> ### " Enter using my login details."
 >   - Screen to Log in.
 > <div align="center">
 > <img src="static/img/login.jpg">
@@ -128,7 +132,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - View Trend Lists for movies and Series as Now Playing or Top Rated or Popular.
+> ### " View Trend Lists for movies and Series as Now Playing or Top Rated or Popular. "
 >   - Navbar dropdown with the TMDB Lists for movies and tv shows.
 > <div align="center">
 > <img src="static/img/tmdb_lists.jpg">
@@ -144,7 +148,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Search for a movie or tv series that I may like and it is not displayed on TMDB provided trend lists.
+> ### " Search for a movie or tv series that I may like and it is not displayed on TMDB provided trend lists. "
 >   - Type what you are looking for and press enter
 > <div align="center">
 > <img src="static/img/search_bar.jpg">
@@ -154,7 +158,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - If avaiable look the movie data as: Original Title, Duration, Movie URL, Overview, Genre, etc.
+> ### " If avaiable look the movie data as: Original Title, Duration, Movie URL, Overview, Genre, etc. "
 >   - Movie/Tv Show screen, and when avaiable the Revenue tab.
 > <div align="center">
 > <img src="static/img/movie_data.jpg">
@@ -164,7 +168,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Create and edit my Watchlist.
+> ### " Create and edit my Watchlist. "
 >   - Open the movie, select the option below and and click on update lists to save to watchlist.
 > <div align="center">
 > <img src="static/img/add_watchlist.jpg">
@@ -173,7 +177,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Create and edit my Watched list.
+> ### " Create and edit my Watched list. "
 >   - Open the movie, select the option below and and click on update lists to save to watched list.
 > <div align="center">
 > <img src="static/img/add_watched.jpg">
@@ -182,7 +186,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Create and edit a movie list that I like.
+> ### " Create and edit a movie list that I like. "
 >   - Open the movie, select the heart option below and and click on update lists to save it, when clicked at the heart the watched button get checked as well, if you liked means you've watched too.
 > <div align="center">
 > <img src="static/img/add_liked_favorite.jpg">
@@ -191,7 +195,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Create and edit a list with my favorite movies.
+> ### " Create and edit a list with my favorite movies. "
 >   - Open the movie, select the star option below and and click on update lists to save it, when clicked at the star the watched button get checked as well, if it is one favorite movie, means you've watched too.
 > <div align="center">
 > <img src="static/img/add_liked_favorite.jpg">
@@ -200,7 +204,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Manage my movies list, (delete) from all lists.
+> ### " Manage my movies list, (delete) from all lists. "
 >   - Go to *My Movies tab and, select to delete a movie, or just open and manage some list information about the movie, as shown previously.
 >   - To delete a movie from all lists a confirmation will be required.
 > <div align="center">
@@ -211,9 +215,9 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Add and check reviews from movies.
+> ### " Add and check reviews from movies. "
 >   - On the movie page, click on review tab, and check for reviews, add some, update or delete your review, if you want it.
-> - Manage my review at the movie, (delete or edit).
+> ### " Manage my review at the movie, (delete or edit). "
 >   - To edit or submit your comment, just write down on the field what you want and click on submit, and to delete your review click on Delete Review and confirm at modal window as image below.
 > <div align="center">
 > <img src="static/img/Movie_review.jpg">
@@ -223,7 +227,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Logout.
+> ### " Logout. "
 >   - Just click at log out option on navbar when logged in. 
 > <div align="center">
 > <img src="static/img/loggedin_navbar.jpg">
@@ -232,7 +236,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Contact the page owner to request something or get in touch.
+> ### " Contact the page owner to request something or get in touch. "
 >   - Just click at contact us option on navbar, that scrools the page down until the contact us section, a toast and a flash message confirm that the email were sent, and below an email sample on the developer email inbox.
 > <div align="center">
 > <img src="static/img/loggedin_navbar.jpg">
@@ -248,7 +252,7 @@
 ##### back to [top](#table-of-contents)
 ---
 
-> - Edit or delete my user account
+> ### " Edit or delete my user account. "
 >   -  When Logged in click on the user name option on the navbar, that drives you to the edit profile page, there you have the option to change username,
 password, full name, email, and delete account (that option excludes all user information), to delete a confirmation is required.
 > <div align="center">
@@ -260,7 +264,7 @@ password, full name, email, and delete account (that option excludes all user in
 ##### back to [top](#table-of-contents)
 ---
 
-> - Footer and Top Button
+> ### Footer and Top Button
 >   -  On the left of the footer section is the TMDB Api credit, as requested to use this api engine, on the middle a description of the Whatx Next? project, and on the right side and the bottom of the page, Project and credit links, and for the last, the top button shown always after scrolling the page down.
 >
 > <div align="center">
@@ -270,7 +274,7 @@ password, full name, email, and delete account (that option excludes all user in
 ##### back to [top](#table-of-contents)
 ---
 
-> - Hovering Carousel and movie lists
+> ### Hovering Carousel and movie lists
 >   -  When Hovering the carousel movies they get some zoom transition and tooltiped title, and when hovering the movies on lists they get some zoom and full color transition and also tooltiped title.
 > <div align="center">
 > <img src="static/img/carousel_zoom.jpg">
@@ -280,7 +284,7 @@ password, full name, email, and delete account (that option excludes all user in
 ##### back to [top](#table-of-contents)
 ---
 
-> - Error 404
+> ### Error 404
 >   -  A default page to 404 Not Found Error was add
 > <div align="center">
 > <img src="static/img/404_error.jpg">
@@ -290,7 +294,7 @@ password, full name, email, and delete account (that option excludes all user in
 ---
 
 ### Features Left to Implement
-> Unfortunetly this features were not implemented yet.
+> Unfortunetly this features were not implemented.
 > - Discover related movies.
 > - Login using my google account.
 
@@ -393,7 +397,6 @@ and as the final touch coloring then back while.
 > <img src="static/img/database_er_model.jpg">
 </div>
 
-##### back to [top](#table-of-contents)
 > - My first challenge during the development process where with some bug on installing and genarate the requirements.txt because the "requests" library 
 was declared and installed but for some unknown reason, wasn't appearing at the requirements file, which cause a bug when trying to run at heroku, because
 that library wasn't found, after talked to my mentor and call the student care support, I've found a solution, adding the "requests" manually on the 
@@ -465,6 +468,8 @@ https://github.com/brunobdias/whatx_next. When you **git clone**, to a remote re
 > - [Mozilla.org](https://developer.mozilla.org/)
 > - [TinyPng](https://tinypng.com/)
 > - [TMDB Movie Api](https://www.themoviedb.org/documentation/api)
+> - [Lucid](https://lucid.app/)
+
 ##### back to [top](#table-of-contents)
 
 ### Media
